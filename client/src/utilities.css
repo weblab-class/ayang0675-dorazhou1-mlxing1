@@ -14,12 +14,35 @@
 * much after initial creation.
 */
 
-/* TODO: REPLACE WITH YOUR OWN FONT! */
-@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+@font-face {
+  font-family: Gilroy;
+  src: url(public/fonts/Gilroy-Medium.ttf);
+  font-weight: 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: Gilroy;
+  src: url(public/fonts/Gilroy-ExtraBold.ttf);
+  font-weight: 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: Gilroy;
+  src: url(public/fonts/Gilroy-Medium.ttf);
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: Gazpacho;
+  src: url(public/fonts/Gazpacho-Medium.ttf);
+  font-weight: normal;
+  font-style: normal;
+}
+
 
 :root {
-  --primary: #396dff;
-  --primary--dim: #6987db;
+  --primary: #006666;
+  --primary--dim: #006666;
   --darkgrey: #d4d4d4;
   --medgrey: #e0e0e0;
   --grey: #f7f7f7;
@@ -31,11 +54,20 @@
   --l: 24px;
 }
 
+::selection {
+  background-color: #00666621;
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: "Roboto", sans-serif;
-  font-weight: 300;
+  /* background-color: #121716;
+  color: white; */
+  font-family: Gilroy, Helvetica, sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-family: Gazpacho, Times, serif;
 }
 
 form {

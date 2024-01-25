@@ -2,12 +2,11 @@ import React from "react";
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
 
 import "../../utilities.css";
-import "./Skeleton.css";
+import "./home.css";
 
-//TODO: REPLACE WITH YOUR OWN CLIENT_ID
 const GOOGLE_CLIENT_ID = "797692957520-0rdd7k0a7c691bgefrl6o0cn07hg4lmc.apps.googleusercontent.com";
 
-const Skeleton = ({ userId, handleLogin, handleLogout }) => {
+const Home = ({ userId, handleLogin, handleLogout }) => {
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       {userId ? (
@@ -44,4 +43,4 @@ const Skeleton = ({ userId, handleLogin, handleLogout }) => {
   );
 };
 
-export default Skeleton;
+export default Home;

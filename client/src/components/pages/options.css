@@ -1,0 +1,59 @@
+form {
+    margin: 20% 10%;
+}
+
+.field {
+    margin: 5px 0 !important;
+}
+
+.field div {
+    font-family: Gilroy, Helvetica, sans-serif !important;
+    width: 300px !important;
+}
+.field div div {
+    background-color: transparent !important;
+}
+
+.field label {
+    color: #006666 !important;
+    font-family: Gilroy, Helvetica, sans-serif !important;
+}
+
+.field div::after {
+    border-bottom-color: #006666 !important;
+}
+
+.field div::before {
+    border-bottom-color: #A8B3AC !important;
+}
+
+/* ::-ms-reveal {
+    filter: invert(100%);
+} */
+
+.MuiMenu-list {
+    border: none;
+    padding: 0 !important;
+}
+.MuiMenu-list li {
+    font-family: Gilroy, Helvetica, sans-serif !important;
+    min-height: 24px !important;
+}
+.MuiMenu-list li.Mui-selected, .MuiMenu-list li:hover, .MuiMenu-list li.Mui-selected:hover, .MuiMenu-list li.Mui-selected:focus {
+    background-color: #0066661b;
+}
+
+.theme-btn {
+    border: none;
+    background-color: #006666;
+    padding: 10px 16px;
+    border-radius: 10px;
+    color: white;
+    font-family: Gilroy, Helvetica, sans-serif;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.theme-btn:active {
+    background-color: #028181;
+}
