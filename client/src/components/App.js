@@ -5,7 +5,8 @@ import jwt_decode from "jwt-decode";
 
 import NotFound from "./pages/NotFound.js";
 import Home from "./pages/home.js";
-import Options from "./pages/options.js"
+import Options from "./pages/options.js";
+import Game from "./pages/Game.js";
 
 import "../utilities.css";
 
@@ -57,6 +58,7 @@ const App = () => {
         }
       />
       <Route path="/options" element={<Options />}/>
+      <Route path="/game" element={<Game />}/>
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
