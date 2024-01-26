@@ -1,1 +1,1 @@
- export const ToRow = n =>String.fromCharCode(n+97)
+ export const ToCol = n =>String.fromCharCode(n+96)
