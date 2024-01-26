@@ -1,91 +1,53 @@
 import "./pieces.css"
 import React from "react"
 import Piece from './Piece.js'
-
-function getEntangled() {
-    
-    // choose entangled 
-    let entangled = new Array(8).fill('').map(x=>new Array(8).fill(''))
-
-    const rank = [0,1];
-    const file = [0,1,2,3,4,5,6,7];
-    let pairs = []
-    rank.forEach( (r) => {
-        file.forEach( (f) => {
-            pairs.push([r,f])
-        })
-    });
-    let l = 16;
-
-
-    for(let i=0; i<3; i++) {
-        let first = Math.floor(Math.random() * l);
-        let firstpair = pairs[first]
-        pairs.splice(first, 1);
-        l--;
-        let secondpair = pairs[Math.floor(Math.random() * l)];
-        l--;
-        // whites
-        entangled[firstpair[0]][firstpair[1]] = 'entangled-w-'+i;
-        entangled[secondpair[0]][secondpair[1]] = 'entangled-w-'+i;
-        // blacks
-        entangled[7-firstpair[0]][firstpair[1]] = 'entangled-b-'+i;
-        entangled[7-secondpair[0]][secondpair[1]] = 'entangled-b-'+i;
-    }
-
-    return entangled
-}
+import { useState,useRef,useEffect } from 'react';
+import { createPosition,copyPosition,getEntangled } from '../../helper.js'
+import ReactDOM from "react-dom/client";
 
 const Pieces = () => {
-    let position = new Array(8).fill('').map(x=>new Array(8).fill(''))
-    position[0][0]='wr'; 
-    position[0][1]='wh';
-    position[0][2]='wb';
-    position[0][3]='wq';
-    position[0][4]='wk';
-    position[0][5]='wb';
-    position[0][6]='wh';
-    position[0][7]='wr';
-    position[1][0]='wp';
-    position[1][1]='wp';
-    position[1][2]='wp';
-    position[1][3]='wp';
-    position[1][4]='wp';
-    position[1][5]='wp';
-    position[1][6]='wp';
-    position[1][7]='wp';
+    const ref=useRef()
+    console.log(useRef().current)
+    const[state,setState] = useState(createPosition());
+    const[entangled, setEntangled] = useState(getEntangled());
+    const findCoords = e=>{
+        console.log(ref.current.getBoundingClientRect())
+       const {width,left,top} = ref.current.getBoundingClientRect()
+        const size=width/8
+        const y = Math.floor((e.clientX-left)/size)
+        const x = 7- Math.floor((e.clientY-top)/size)
+        return {x,y}
+    }
+    const onDrop = e=>{
+        //console.log(ref.current.getBoundingClientRect())
 
-    position[7][7]='br';
-    position[7][6]='bh';
-    position[7][5]='bb';
-    position[7][4]='bk';
-    position[7][3]='bq';
-    position[7][2]='bb';
-    position[7][1]='bh';
-    position[7][0]='br';
-    position[6][7]='bp';
-    position[6][6]='bp';
-    position[6][5]='bp';
-    position[6][4]='bp';
-    position[6][3]='bp';
-    position[6][2]='bp';
-    position[6][1]='bp';
-    position[6][0]='bp';
-
-    console.log(position);
-
-    const entangled = getEntangled()
-    console.log(entangled[0][1])
-    console.log(entangled)
+        const newPosition=copyPosition(state)
+        const {x,y}=findCoords(e);
+        const[p,rank,file,entanglement] = e.dataTransfer.getData('text').split(',');
+        newPosition[rank][file]=''
+        newPosition[x][y]=p
+        setState(newPosition)
+        const newEntangled = copyPosition(entangled)
+        newEntangled[rank][file]=''
+        newEntangled[x][y]=entanglement
+        setEntangled(newEntangled)
+    }
+    const onDragOver = e=>{
+        e.preventDefault()
+    }
     
-    return <div className = 'pieces'>
-        {position.map((r,rank) => r.map((f,file) => position[rank][file] ? 
+    return <div className = 'pieces'
+    ref={ref}
+    onDrop={onDrop}
+        onDragOver={onDragOver}
+    >
+        {state.map((r,rank) => r.map((f,file) => state[rank][file] ? 
         <Piece
         key = {rank + '-' + file}
         rank = {rank}
         file = {file}
-        piece = {position[rank][file]}
-        entangled = {entangled[rank][file]}/>
+        piece = {state[rank][file]}
+        entanglement = {entangled[rank][file]}/>
         : null))}
     </div>
 }
