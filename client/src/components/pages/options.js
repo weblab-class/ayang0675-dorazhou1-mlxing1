@@ -4,6 +4,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { Link } from "react-router-dom"
 // import { get, post } from "../../utilities";
 import "./options.css";
 
@@ -67,7 +68,7 @@ const Options = () => {
       </FormControl>
             <br />
             <br />
-            <button type="submit" className="theme-btn">play</button>    
+            <Link to="/game"><button type="submit" className="theme-btn">play</button></Link>
         </form>
         </div>
     );

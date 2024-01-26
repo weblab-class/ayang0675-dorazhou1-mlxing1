@@ -1,5 +1,6 @@
 import React from "react";
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
+import { Link } from "react-router-dom"
 
 import "../../utilities.css";
 import "./home.css";
@@ -36,6 +37,11 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
         <li>Change the Database Name for MongoDB to whatever you put in the SRV (server.js)</li>
       </ul>
       <h2>How to go from this skeleton to our actual app</h2>
+      <Link to="/options">
+        <button type="button">
+          with this :)!
+        </button>
+      </Link>
       <a href="https://docs.google.com/document/d/110JdHAn3Wnp3_AyQLkqH2W8h5oby7OVsYIeHYSiUzRs/edit?usp=sharing">
         Check out this getting started guide
       </a>
