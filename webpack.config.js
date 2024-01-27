@@ -71,10 +71,14 @@ module.exports = {
     static: "./client/dist",
     hot: true,
     proxy: {
-      "/api": process.env.BACKEND_URL,
+      "/api": {
+        target: process.env.BACKEND_URL,
+        secure: false,
+      },
       "/socket.io/*": {
         target: process.env.BACKEND_URL,
         ws: true,
+        secure: false
       },
     },
     allowedHosts: ['all'],
