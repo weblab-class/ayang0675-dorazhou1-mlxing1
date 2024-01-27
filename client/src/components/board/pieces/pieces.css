@@ -37,10 +37,10 @@
 }
 
 .piece-img.entangled-b-2, .piece-img.entangled-w-2 {
-    -webkit-filter: drop-shadow(1px 1px 10px green)
-                  drop-shadow(-1px -1px 10px green);
-    filter: drop-shadow(1px 1px 10px green) 
-          drop-shadow(-1px -1px 10px green);
+    -webkit-filter: drop-shadow(1px 1px 10px yellow)
+                  drop-shadow(-1px -1px 10px yellow);
+    filter: drop-shadow(1px 1px 10px yellow) 
+          drop-shadow(-1px -1px 10px yellow);
 }
 
 .piece.p-77 {transform: translate(700%,0%)}

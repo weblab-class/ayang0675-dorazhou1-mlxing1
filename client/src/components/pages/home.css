@@ -1,38 +1,17 @@
-/* game stuff */
-.square {
-    border: none;
-    float: left;
-    font-size: 24px;
-    font-weight: bold;
-    line-height: 34px;
-    height: 34px;
-    margin-right: -1px;
-    margin-top: -1px;
-    padding: 0;
-    text-align: center;
-    width: 34px;
-  }
-  
-  .square {
-    background-color: rgb(69, 43, 9);
-  }
-  
-  .row:nth-child(2n+1) .square:nth-child(2n), 
-  .row:nth-child(2n) .square:nth-child(2n+1) {
-    background-color: rgb(128, 66, 36);
-  }
-  
-  
-  .board-row:after {
-    clear: both;
-    content: '';
-    display: table;
-  }
-  
-  .game {
-    display: flex;
-    flex-direction: row;
-  }
-  
-  /* login stuff */
-  
+.navbar {
+  display:flex;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #1C2620;
+}
+.hero {
+  background-color: #1C2620;
+  padding: 8%;
+  padding-top: 20%;
+  color: #92D9C8;
+}
+.draw-logo {
+  width: 80%;
+  height: min-content;
+  stroke: #bf4d00;
+}
