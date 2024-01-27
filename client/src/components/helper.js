@@ -65,8 +65,10 @@
         let first = Math.floor(Math.random() * l);
         let firstpair = pairs[first]
         pairs.splice(first, 1);
-        l--;
-        let secondpair = pairs[Math.floor(Math.random() * l)];
+        l--;        
+        let second = Math.floor(Math.random() * l)
+        let secondpair = pairs[second];
+        pairs.splice(second, 1)
         l--;
         // whites
         entangled[firstpair[0]][firstpair[1]] = 'entangled-w-'+i;
