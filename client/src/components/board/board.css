@@ -5,14 +5,41 @@
 }
 .tiles{
     display:grid;
+    position:relative;
     grid-template-columns: repeat(8,var(--tile-size));
     grid-template-rows: repeat(8,var(--tile-size));
     width: calc(8*var(--tile-size));
 }
-.tile--light{
 
+.tile--light{
+    position:relative;
     background: var(--light-tile);
 }
 .tile--dark{
+    position:relative;
     background: var(--dark-tile);
+}
+.empty::after{
+    content:'';
+    display:block;
+    position:absolute;
+    width:calc(0.4*var(--tile-size));
+    height:calc(0.4*var(--tile-size));
+
+    background-color: rgba(0,0,0,.25);
+    border-radius: 50%;
+    left: 30%;
+    top: 30%;
+}
+.attacking::after{
+    content:'';
+    display:block;
+    position:absolute;
+    width:calc(0.6*var(--tile-size));
+    height:calc(0.6*var(--tile-size));
+
+    border: calc(0.1*var(--tile-size)) solid rgba(0,0,0,.25);
+    border-radius: 50%;
+    left: 10%;
+    top: 10%;
 }

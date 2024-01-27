@@ -6,9 +6,13 @@ export const newMove = ({newPosition, newEntangled}) => {
     }
 }
 export const generateCandidateMoves = ({candidateMoves}) =>{
-    console.log(candidateMoves)
     return {
         type: actionTypes.GENERATE_CANDIDATE_MOVES,
         payload:{candidateMoves},
+    }
+}
+export const clearCandidates = ()=>{
+    return {
+        type: actionTypes.CLEAR_CANDIDATE_MOVES,
     }
 }

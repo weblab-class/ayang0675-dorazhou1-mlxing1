@@ -4,7 +4,7 @@ import Piece from './Piece.js'
 import { useState,useRef,useEffect } from 'react';
 import { createPosition,copyPosition,getEntangled } from '../../helper.js'
 import { useAppContext } from "../../context/context.js";
-import { newMove } from "../../reducer/actions/move.js";
+import { clearCandidates, newMove } from "../../reducer/actions/move.js";
 
 const Pieces = () => {
 
@@ -13,8 +13,6 @@ const Pieces = () => {
     const {appState, dispatch} = useAppContext();
     const currentPosition = appState.position[appState.position.length-1]
     const currentEntangled = appState.entangled[appState.entangled.length-1]
-    console.log(appState.position)
-    console.log(appState.entangled)
     const findCoords = e=>{
         console.log(ref.current.getBoundingClientRect())
        const {width,left,top} = ref.current.getBoundingClientRect()
@@ -29,12 +27,18 @@ const Pieces = () => {
         const newPosition=copyPosition(currentPosition)
         const {x,y}=findCoords(e);
         const[p,rank,file,entanglement] = e.dataTransfer.getData('text').split(',');
-        newPosition[rank][file]=''
-        newPosition[x][y]=p
-        const newEntangled = copyPosition(currentEntangled)
-        newEntangled[rank][file]=''
-        newEntangled[x][y]=entanglement
-        dispatch(newMove({newPosition,newEntangled}))
+
+        if(appState.candidateMoves?.find(m => m[0] === x && m[1] === y)){
+            newPosition[rank][file]=''
+            newPosition[x][y]=p
+            const newEntangled = copyPosition(currentEntangled)
+            newEntangled[rank][file]=''
+            newEntangled[x][y]=entanglement
+            dispatch(newMove({newPosition,newEntangled}))
+        }
+
+        dispatch(clearCandidates())
+
     }
     const onDragOver = e=>{
         e.preventDefault()

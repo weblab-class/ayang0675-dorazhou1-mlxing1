@@ -1,4 +1,4 @@
-const getRookMoves = ({position,piece,rank,file}) => {
+export const getRookMoves = ({position,piece,rank,file}) => {
     const moves =[]
     const us = piece[0]
     const enemy = us=='w'?'b':'w'
@@ -28,7 +28,7 @@ const getRookMoves = ({position,piece,rank,file}) => {
     return moves
 }
 
-const getBishopMoves = ({position,piece,rank,file}) => {
+export const getBishopMoves = ({position,piece,rank,file}) => {
     const moves =[]
     const us = piece[0]
     const enemy = us=='w'?'b':'w'
@@ -59,7 +59,7 @@ const getBishopMoves = ({position,piece,rank,file}) => {
 }
 
 
-const getKnightMoves = ({position,piece,rank,file}) => {
+export const getKnightMoves = ({position,piece,rank,file}) => {
     const moves =[]
     const us = piece[0]
     const enemy = us=='w'?'b':'w'
@@ -81,7 +81,7 @@ const getKnightMoves = ({position,piece,rank,file}) => {
     return moves
 }
 
-const getPawnMoves = ({position,piece,rank,file}) => {
+export const getPawnMoves = ({position,piece,rank,file}) => {
     const moves =[]
     const us = piece[0]
     const enemy = us=='w'?'b':'w'
@@ -104,7 +104,7 @@ const getPawnMoves = ({position,piece,rank,file}) => {
     return moves
 }
 
-const getQueenMoves = ({position,piece,rank,file}) => {
+export const getQueenMoves = ({position,piece,rank,file}) => {
     const moves =[]
     const us = piece[0]
     const enemy = us=='w'?'b':'w'
@@ -138,7 +138,7 @@ const getQueenMoves = ({position,piece,rank,file}) => {
     return moves
 }
 
-const getKingMoves = ({position,piece,rank,file}) => {
+export const getKingMoves = ({position,piece,rank,file}) => {
     
     const moves =[]
     const us = piece[0]
@@ -201,8 +201,4 @@ const getKingMoves = ({position,piece,rank,file}) => {
             moves.push([rank+1,file+1]);
         }
     })
-}
-
-export const getMoves = ({position,piece,rank,file}) => {
-    return getRookMoves({position,piece,rank,file});
 }
