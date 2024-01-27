@@ -77,6 +77,6 @@ module.exports = {
         ws: true,
       },
     },
-    allowedHosts: 'all',
+    allowedHosts: ['all'],
   },
 };
