@@ -6,7 +6,7 @@ const arbiter = {
             case 'r':
                 return getRookMoves({position,piece,rank,file});
             case 'p':
-                return getRookMoves({position,piece,rank,file});
+                return getPawnMoves({position,piece,rank,file});
             case 'h':
                 return getKnightMoves({position,piece,rank,file});
             case 'k':

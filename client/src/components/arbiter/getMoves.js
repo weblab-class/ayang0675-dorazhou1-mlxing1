@@ -1,7 +1,7 @@
 export const getRookMoves = ({position,piece,rank,file}) => {
     const moves =[]
     const us = piece[0]
-    const enemy = us=='w'?'b':'w'
+    const enemy = us==='w'?'b':'w'
 
     const direction = [
         [-1,0],
@@ -31,7 +31,7 @@ export const getRookMoves = ({position,piece,rank,file}) => {
 export const getBishopMoves = ({position,piece,rank,file}) => {
     const moves =[]
     const us = piece[0]
-    const enemy = us=='w'?'b':'w'
+    const enemy = us==='w'?'b':'w'
 
     const direction = [
         [1,1],
@@ -43,7 +43,7 @@ export const getBishopMoves = ({position,piece,rank,file}) => {
         for(let i=1;i<8; i++){
             const x= rank + (i*dir[0])
             const y= file + (i*dir[1])
-            if(position?.[x]?.[y] == undefined) break
+            if(position?.[x]?.[y] === undefined) break
             if(position[x][y].startsWith(enemy)) {
                 moves.push([x,y])
                 break;
@@ -62,7 +62,7 @@ export const getBishopMoves = ({position,piece,rank,file}) => {
 export const getKnightMoves = ({position,piece,rank,file}) => {
     const moves =[]
     const us = piece[0]
-    const enemy = us=='w'?'b':'w'
+    const enemy = us==='w'?'b':'w'
 
     const direction = [
         [1,2],
@@ -75,7 +75,7 @@ export const getKnightMoves = ({position,piece,rank,file}) => {
         [-2,-1]
     ]
     direction.forEach(dir => {
-        moves.push([rank + dir[0], file + dir[1]])
+        if(!position?.[rank + dir[0]]?.[file + dir[1]]?.startsWith(us))moves.push([rank + dir[0], file + dir[1]])
     })
     console.log(moves)
     return moves
@@ -84,21 +84,21 @@ export const getKnightMoves = ({position,piece,rank,file}) => {
 export const getPawnMoves = ({position,piece,rank,file}) => {
     const moves =[]
     const us = piece[0]
-    const enemy = us=='w'?'b':'w'
-
-    if(position[rank+1][file] == "") {
-        moves.push([rank+1,file]);
-        if(position[rank+2][file] == "") {
-            moves.push([rank+2,file]);
+    const enemy = us==='w'?'b':'w'
+    const one = (us==='w')?1:-1
+    if(position?.[rank+one]?.[file] !=undefined && position?.[rank+one]?.[file] === "") {
+        moves.push([rank+one,file]);
+        if(rank===(one===1?1:6) && position?.[rank+2*one]?.[file] === "") {
+            moves.push([rank+2*one,file]);
         }
     }
 
-    if(position[rank+1][file+1].startsWith(enemy)) {
-        moves.push([rank+1,file+1]);
+    if(position?.[rank+one]?.[file+one]!=undefined && position[rank+one][file+one].startsWith(enemy)) {
+        moves.push([rank+one,file+one]);
     }
 
-    if(position[rank+1][file-1].startsWith(enemy)) {
-        moves.push([rank+1,file-1]);
+    if(position?.[rank+one]?.[file-one]!=undefined && position[rank+one][file-one].startsWith(enemy)) {
+        moves.push([rank+one,file-one]);
     }
     
     return moves
@@ -107,7 +107,7 @@ export const getPawnMoves = ({position,piece,rank,file}) => {
 export const getQueenMoves = ({position,piece,rank,file}) => {
     const moves =[]
     const us = piece[0]
-    const enemy = us=='w'?'b':'w'
+    const enemy = us==='w'?'b':'w'
 
     const direction = [
         [1,1],
@@ -123,7 +123,7 @@ export const getQueenMoves = ({position,piece,rank,file}) => {
         for(let i=1;i<8; i++){
             const x= rank + (i*dir[0])
             const y= file + (i*dir[1])
-            if(position?.[x]?.[y] == undefined) break
+            if(position?.[x]?.[y] === undefined) break
             if(position[x][y].startsWith(enemy)) {
                 moves.push([x,y])
                 break;
@@ -142,7 +142,7 @@ export const getKingMoves = ({position,piece,rank,file}) => {
     
     const moves =[]
     const us = piece[0]
-    const enemy = us=='w'?'b':'w'
+    const enemy = us==='w'?'b':'w'
 
     const direction = [
         [1,1],
@@ -155,7 +155,7 @@ export const getKingMoves = ({position,piece,rank,file}) => {
         [0,1],
     ]
 
-    const getEnemyMoves = () => {
+    /*const getEnemyMoves = () => {
         enemyMoves = []
         const findPiece = (piece) => {
             pieces = []
@@ -194,11 +194,11 @@ export const getKingMoves = ({position,piece,rank,file}) => {
         return enemyMoves
     }
 
-    enemyMoves = getEnemyMoves()
+    enemyMoves = getEnemyMoves()*/
 
-    direction.forEach( dir => {
-        if(!position[rank+dir[0]][file+dir[1]].startsWith(us) && !enemyMoves.includes([rank+dir[0],file+dir[1]])) {
-            moves.push([rank+1,file+1]);
-        }
+    direction.forEach(dir => {
+        if(!position?.[rank + dir[0]]?.[file + dir[1]]?.startsWith(us))moves.push([rank + dir[0], file + dir[1]])
     })
+    console.log(moves)
+    return moves
 }
