@@ -42,18 +42,3 @@ form {
 .MuiMenu-list li.Mui-selected, .MuiMenu-list li:hover, .MuiMenu-list li.Mui-selected:hover, .MuiMenu-list li.Mui-selected:focus {
     background-color: #0066661b;
 }
-
-.theme-btn {
-    border: none;
-    background-color: #006666;
-    padding: 10px 16px;
-    border-radius: 10px;
-    color: white;
-    font-family: Gilroy, Helvetica, sans-serif;
-    font-weight: 800;
-    cursor: pointer;
-}
-
-.theme-btn:active {
-    background-color: #028181;
-}

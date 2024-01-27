@@ -42,7 +42,7 @@
 
 :root {
   --primary: #006666;
-  --primary--dim: #006666;
+  --primary--dim: #0066663b;
   --darkgrey: #d4d4d4;
   --medgrey: #e0e0e0;
   --grey: #f7f7f7;
@@ -70,9 +70,6 @@ h1, h2, h3, h4 {
   font-family: Gazpacho, Times, serif;
 }
 
-form {
-  flex-grow: 1;
-}
 
 .u-flex {
   display: flex;
@@ -119,4 +116,20 @@ form {
 
 .u-link:hover {
   color: var(--primary--dim);
+}
+
+
+.theme-btn {
+  border: none;
+  background-color: #006666;
+  padding: 10px 16px;
+  border-radius: 10px;
+  color: white;
+  font-family: Gilroy, Helvetica, sans-serif;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.theme-btn:active {
+  background-color: #028181;
 }
