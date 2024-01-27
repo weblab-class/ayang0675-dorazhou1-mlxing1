@@ -5,3 +5,10 @@ export const newMove = ({newPosition, newEntangled}) => {
         payload: {newPosition, newEntangled}
     }
 }
+export const generateCandidateMoves = ({candidateMoves}) =>{
+    console.log(candidateMoves)
+    return {
+        type: actionTypes.GENERATE_CANDIDATE_MOVES,
+        payload:{candidateMoves},
+    }
+}

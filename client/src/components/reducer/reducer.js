@@ -22,6 +22,12 @@ export const reducer = (state,action) =>{
                 entangled
             }
         }
+        case actionTypes.GENERATE_CANDIDATE_MOVES : {
+            return{
+                ...state,
+                candidateMoves : action.payload.candidateMoves
+            }
+        }
         default:
             return state
     }

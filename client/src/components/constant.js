@@ -3,4 +3,5 @@ export const initGameState = {
     position: [createPosition()],
     entangled: [getEntangled()],
     turn: 'w',
+    candidateMoves: [],
 }
