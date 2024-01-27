@@ -8,10 +8,14 @@ const Piece = ({rank,file,piece,entanglement}) =>{
         e.target.style.display='none'
         },0)
     }
+    const onDragEnd = e=>{
+        e.target.style.display='block'
+    }
     return (
         <div
         className = {`piece ${piece} p-${rank}${file}`} 
         draggable={true} 
+        onDragEnd={onDragEnd}
         onDragStart = {onDragStart}
         >
         <img className={`piece-img  ${entanglement}`} src={`pieces/${piece}.svg`} />

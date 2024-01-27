@@ -3,13 +3,18 @@ import React from "react"
 import Piece from './Piece.js'
 import { useState,useRef,useEffect } from 'react';
 import { createPosition,copyPosition,getEntangled } from '../../helper.js'
-import ReactDOM from "react-dom/client";
+import { useAppContext } from "../../context/context.js";
+import { newMove } from "../../reducer/actions/move.js";
 
 const Pieces = () => {
+
     const ref=useRef()
-    console.log(useRef().current)
-    const[state,setState] = useState(createPosition());
-    const[entangled, setEntangled] = useState(getEntangled());
+
+    const {appState, dispatch} = useAppContext();
+    const currentPosition = appState.position[appState.position.length-1]
+    const currentEntangled = appState.entangled[appState.entangled.length-1]
+    console.log(appState.position)
+    console.log(appState.entangled)
     const findCoords = e=>{
         console.log(ref.current.getBoundingClientRect())
        const {width,left,top} = ref.current.getBoundingClientRect()
@@ -21,16 +26,15 @@ const Pieces = () => {
     const onDrop = e=>{
         //console.log(ref.current.getBoundingClientRect())
 
-        const newPosition=copyPosition(state)
+        const newPosition=copyPosition(currentPosition)
         const {x,y}=findCoords(e);
         const[p,rank,file,entanglement] = e.dataTransfer.getData('text').split(',');
         newPosition[rank][file]=''
         newPosition[x][y]=p
-        setState(newPosition)
-        const newEntangled = copyPosition(entangled)
+        const newEntangled = copyPosition(currentEntangled)
         newEntangled[rank][file]=''
         newEntangled[x][y]=entanglement
-        setEntangled(newEntangled)
+        dispatch(newMove({newPosition,newEntangled}))
     }
     const onDragOver = e=>{
         e.preventDefault()
@@ -41,13 +45,13 @@ const Pieces = () => {
     onDrop={onDrop}
         onDragOver={onDragOver}
     >
-        {state.map((r,rank) => r.map((f,file) => state[rank][file] ? 
+        {currentPosition.map((r,rank) => r.map((f,file) => currentPosition[rank][file] ? 
         <Piece
         key = {rank + '-' + file}
         rank = {rank}
         file = {file}
-        piece = {state[rank][file]}
-        entanglement = {entangled[rank][file]}/>
+        piece = {currentPosition[rank][file]}
+        entanglement = {currentEntangled[rank][file]}/>
         : null))}
     </div>
 }
