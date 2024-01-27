@@ -73,12 +73,12 @@ module.exports = {
     proxy: {
       "/api": {
         target: process.env.BACKEND_URL,
-        secure: false,
+        changeOrigin: true
       },
       "/socket.io/*": {
         target: process.env.BACKEND_URL,
         ws: true,
-        secure: false
+        changeOrigin: true
       },
     },
     allowedHosts: ['all'],
