@@ -23,7 +23,6 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
         <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />
       )}
       <h1>Good luck on your project :)</h1>
-      <h2> What you need to change in this skeleton</h2>
       <ul>
         <li>
           Change the Frontend CLIENT_ID (Skeleton.js) to your team's CLIENT_ID (obtain this at
