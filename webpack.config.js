@@ -22,6 +22,10 @@ const outputDir = path.resolve(__dirname, "client", "dist");
 
 const webpack = require("webpack");
 
+
+//allow us to use process.ENV
+require("dotenv").config();
+
 module.exports = {
   entry: [entryFile],
   output: {
@@ -67,12 +71,16 @@ module.exports = {
     static: "./client/dist",
     hot: true,
     proxy: {
-      "/api": "http://localhost:3000",
+      "/api": {
+        target: process.env.BACKEND_URL,
+        changeOrigin: true
+      },
       "/socket.io/*": {
-        target: "http://localhost:3000",
+        target: process.env.BACKEND_URL,
         ws: true,
+        changeOrigin: true
       },
     },
-    allowedHosts: 'all',
+    allowedHosts: ['all'],
   },
 };
