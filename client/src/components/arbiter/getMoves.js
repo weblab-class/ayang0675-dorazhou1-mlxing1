@@ -81,7 +81,7 @@ export const getKnightMoves = ({position,piece,rank,file}) => {
     return moves
 }
 
-export const getPawnMoves = ({position,piece,rank,file}) => {
+export const getPawnMoves = ({position,prevPosition,piece,rank,file}) => {
     const moves =[]
     const us = piece[0]
     const enemy = us==='w'?'b':'w'
@@ -100,7 +100,21 @@ export const getPawnMoves = ({position,piece,rank,file}) => {
     if(position?.[rank+one]?.[file-one]!=undefined && position[rank+one][file-one].startsWith(enemy)) {
         moves.push([rank+one,file-one]);
     }
-    
+    const enemyPawn = (one==1?'bp':'wp')
+    //console.log(prevPosition)
+    if(prevPosition){
+        //console.log(prevPosition)
+        if(rank === (one==1?4:3)){
+
+            if(position?.[rank]?.[file-1] === enemyPawn && position?.[rank+2*one]?.[file-1] === ''
+            && prevPosition?.[rank]?.[file-1] === '' && prevPosition?.[rank+2*one]?.[file-1] === enemyPawn
+            )moves.push([rank+one,file-1])
+
+            if(position?.[rank]?.[file+1] === enemyPawn && position?.[rank+2*one]?.[file+1] === ''
+            && prevPosition?.[rank]?.[file+1] === '' && prevPosition?.[rank+2*one]?.[file+1] === enemyPawn
+            )moves.push([rank+one,file+1])
+        }
+    }
     return moves
 }
 
@@ -138,7 +152,7 @@ export const getQueenMoves = ({position,piece,rank,file}) => {
     return moves
 }
 
-export const getKingMoves = ({position,piece,rank,file}) => {
+export const getKingMoves = ({position, piece,rank,file}) => {
     
     const moves =[]
     const us = piece[0]

@@ -6,16 +6,15 @@ const Piece = ({rank,file,piece,entanglement}) =>{
 
     const {appState,dispatch} = useAppContext()
     const {turn, position} = appState
-    const currentPosition = position[position.length-1]
-
     const onDragStart  = e=>{
+        //console.log(previousPosition)
         e.dataTransfer.effectAllowed = 'move'
         e.dataTransfer.setData('text/plain', `${piece},${rank},${file},${entanglement}`)
         setTimeout(()=>{
         e.target.style.display='none'
         },0)
         if(turn === piece[0]){
-            const candidateMoves = arbiter.getRegularMoves({position:currentPosition,piece,rank,file})
+            const candidateMoves = arbiter.getRegularMoves({position:position[position.length-1],prevPosition:position[position.length-2], piece,rank,file})
             dispatch(generateCandidateMoves({candidateMoves}))
         }
     }

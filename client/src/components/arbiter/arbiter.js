@@ -1,12 +1,12 @@
 import { getRookMoves,getPawnMoves,getKnightMoves,getKingMoves,getQueenMoves,getBishopMoves } from "./getMoves"
 const arbiter = {
-    getRegularMoves: function({position,piece,rank,file}){
-        //console.log(piece[1])
+    getRegularMoves: function({position,prevPosition,piece,rank,file}){
+        //console.log(prevPosition)
         switch(piece[1]){
             case 'r':
                 return getRookMoves({position,piece,rank,file});
             case 'p':
-                return getPawnMoves({position,piece,rank,file});
+                return getPawnMoves({position,prevPosition,piece,rank,file});
             case 'h':
                 return getKnightMoves({position,piece,rank,file});
             case 'k':
@@ -16,7 +16,7 @@ const arbiter = {
             case 'b':
                 return getBishopMoves({position,piece,rank,file});
             default:
-                return getPawnMoves({position,piece,rank,file});
+                return getPawnMoves({position,prevPosition,piece,rank,file});
         }
 
         //return getRookMoves({position,piece,rank,file})

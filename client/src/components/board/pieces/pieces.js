@@ -14,7 +14,6 @@ const Pieces = () => {
     const currentPosition = appState.position[appState.position.length-1]
     const currentEntangled = appState.entangled[appState.entangled.length-1]
     const findCoords = e=>{
-        console.log(ref.current.getBoundingClientRect())
        const {width,left,top} = ref.current.getBoundingClientRect()
         const size=width/8
         const y = Math.floor((e.clientX-left)/size)
@@ -29,6 +28,8 @@ const Pieces = () => {
         const[p,rank,file,entanglement] = e.dataTransfer.getData('text').split(',');
 
         if(appState.candidateMoves?.find(m => m[0] === x && m[1] === y)){
+            if (p.endsWith('p') && newPosition[x][y] === '' && x!==rank && y!==file)
+                newPosition[rank][y]=''
             newPosition[rank][file]=''
             newPosition[x][y]=p
             const newEntangled = copyPosition(currentEntangled)
