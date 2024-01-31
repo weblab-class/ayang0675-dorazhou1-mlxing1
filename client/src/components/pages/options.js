@@ -34,7 +34,7 @@ const Options = () => {
             <TextField id="game_code" className="field" variant="standard" label="game code" value={gamecode} onChange={(e) => setGamecode(e.target.value)} sx={{ input: { color: 'black' } }} />
             <br/>
             <FormControl className='field' variant="standard" sx={{ m: 1, minWidth: 300 }}>
-        <InputLabel id="time-select-label">time</InputLabel>
+{/*         <InputLabel id="time-select-label">time</InputLabel>
         <Select
           labelId="time-label"
           id="time-select"
@@ -47,7 +47,7 @@ const Options = () => {
           <MenuItem value={10}>10:00</MenuItem>
           <MenuItem value={20}>20:00</MenuItem>
           <MenuItem value={30}>30:00</MenuItem>
-        </Select>
+        </Select> */}
       </FormControl>
       <br/>
       <FormControl className='field' variant="standard" sx={{ m: 1, minWidth: 300 }}>
