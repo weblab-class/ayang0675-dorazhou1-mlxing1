@@ -16,7 +16,7 @@ const Options = () => {
     const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault();
-        navigate("/game?room="+gamecode)
+        navigate("/game?room="+gamecode+"&pairs="+entangle)
 
     };
     const handleTime = (event) => {
@@ -27,7 +27,7 @@ const Options = () => {
     };
 
     return (
-        <div class="options">
+        <div className="options">
         <form onSubmit={(e) => handleSubmit(e)}>
             <h1>select options for your game</h1>
 
@@ -41,7 +41,7 @@ const Options = () => {
           value={time}
           onChange={handleTime}
           label="time"
-          class="select-options"
+          className="select-options"
         >
           <MenuItem value={5}>05:00</MenuItem>
           <MenuItem value={10}>10:00</MenuItem>
@@ -58,7 +58,7 @@ const Options = () => {
           value={entangle}
           onChange={handleEntangle}
           label="entangle"
-          class="select-options"
+          className="select-options"
         >
           <MenuItem value={0}>0</MenuItem>
           <MenuItem value={1}>1</MenuItem>

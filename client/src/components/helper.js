@@ -45,7 +45,7 @@
     position[6][0]='bp';
     return position
  }
- export const getEntangled = () => {
+ export const getEntangled = (numpairs) => {
     
     // choose entangled 
     let entangled = new Array(8).fill('').map(x=>new Array(8).fill(''))
@@ -61,7 +61,7 @@
     let l = 14;
 
 
-    for(let i=0; i<3; i++) {
+    for(let i=0; i<numpairs; i++) {
         let first = Math.floor(Math.random() * l);
         let firstpair = pairs[first]
         pairs.splice(first, 1);

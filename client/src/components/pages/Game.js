@@ -15,16 +15,18 @@ import Controls from "../modules/controls.js"
 
 
 const Game = ({ socket, wins, losses, userId }) => {
-  console.log(userId)
+  
   const [searchParams, setSearchParams] = useSearchParams();
   const room = searchParams.get("room");
+  const pairs = searchParams.get("pairs");
+  console.log(pairs)
   console.log("room: " + room)
   useEffect(() => {
     gameSocket.joinRoom(room);
   }, []);
   initGameState.room = room;
 
-  const [appState, dispatch] = useReducer(reducer, initGameState)
+  const [appState, dispatch] = useReducer(reducer, initGameState(pairs))
   const [side, setSide] = useState(appState.side);
   console.log("refresh"+side)
   console.log(appState)
