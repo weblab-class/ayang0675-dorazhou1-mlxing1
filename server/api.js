@@ -39,6 +39,12 @@ router.post("/initsocket", (req, res) => {
   res.send({});
 });
 
+router.post("/nextMove", (req, res) => {
+  console.log(req.body.move+" "+req.body.room);
+  socketManager.getIo().to(req.body.room).emit('nextMove', req.body.move);
+  res.send({})
+})
+
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|

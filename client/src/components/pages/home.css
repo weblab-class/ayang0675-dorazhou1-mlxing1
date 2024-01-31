@@ -2,13 +2,13 @@
   display:flex;
   justify-content: space-between;
   padding: 20px;
-  background-color: #1C2620;
+  background-color: rgb(22, 30, 26);
 }
 .hero {
-  background-color: #1C2620;
+  background-color: rgb(22, 30, 26);
   padding: 8%;
   padding-top: 20%;
-  color: #92D9C8;
+  color: #25DFDA;
 }
 .draw-logo {
   width: 80%;

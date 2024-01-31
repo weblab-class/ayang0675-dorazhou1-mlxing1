@@ -35,6 +35,9 @@ module.exports = {
         const user = getUserFromSocketID(socket.id);
         removeUser(user, socket);
       });
+      socket.on("join", (room) => {
+        socket.join(room);
+      });
     });
   },
 

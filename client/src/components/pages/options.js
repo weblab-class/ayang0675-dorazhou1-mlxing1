@@ -4,7 +4,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 // import { get, post } from "../../utilities";
 import "./options.css";
 
@@ -13,9 +13,10 @@ const Options = () => {
     const [gamecode, setGamecode] = useState("");
     const [time, setTime] = useState("");
     const [entangle, setEntangle] = useState("");
-
+    const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault();
+        navigate("/game?room="+gamecode)
         
     };
     const handleTime = (event) => {
@@ -40,7 +41,7 @@ const Options = () => {
           value={time}
           onChange={handleTime}
           label="time"
-          class="select-blahhhhhh"
+          class="select-options"
         >
           <MenuItem value={5}>05:00</MenuItem>
           <MenuItem value={10}>10:00</MenuItem>
@@ -57,7 +58,7 @@ const Options = () => {
           value={entangle}
           onChange={handleEntangle}
           label="entangle"
-          class="select-blahhhhhh"
+          class="select-options"
         >
           <MenuItem value={0}>0</MenuItem>
           <MenuItem value={1}>1</MenuItem>
@@ -68,7 +69,7 @@ const Options = () => {
       </FormControl>
             <br />
             <br />
-            <Link to="/game"><button type="submit" className="theme-btn">play</button></Link>
+            <button type="submit" className="theme-btn">play</button>
         </form>
         </div>
     );
