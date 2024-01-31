@@ -81,7 +81,7 @@ const Game = ({ socket, wins, losses, userId }) => {
   return (
     <AppContext.Provider value={providerState}>
       <Link to="/">
-      <div class="logo">
+      <div className="logo">
         <img src="logo.svg"/>
       </div>
       </Link>
