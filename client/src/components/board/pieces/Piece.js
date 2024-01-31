@@ -14,6 +14,7 @@ const Piece = ({rank,file,piece,entanglement}) =>{
         e.target.style.display='none'
         },0)
         if(turn === piece[0] && (turn === appState.side || appState.solo==1)){
+            console.log(appState)
             const candidateMoves = arbiter.getRegularMoves({
                 position:position[position.length-1],
                 entangled:entangled[entangled.length-1],
