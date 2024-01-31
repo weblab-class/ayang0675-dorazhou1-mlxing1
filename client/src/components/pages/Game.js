@@ -33,9 +33,7 @@ const Game = ({ socket, wins, losses, userId }) => {
 
   socket.off('nextMove')
   socket.on('nextMove', (move) => {
-    /*if(!checkArrays(appState.position[appState.position.length-1], move.position)) {
-      dispatch(newMove({newPosition:move.position,newEntangled:move.entangled}))
-    }*/
+    console.log("MOVE")
     if (appState.side == move.side) dispatch(updateBoard(move))
   });
 

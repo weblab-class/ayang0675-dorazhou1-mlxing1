@@ -76,7 +76,7 @@ const Pieces = ({room, socket}) => {
             }
             dispatch(changeMove())
             const sendMove = (move) => {
-                gameSocket.sendNextMove(appState.room, move)
+                gameSocket.sendNextMove(room, move)
             }
             console.log("sendmove")
             sendMove({position: [...appState.position,newPosition], entangled: [...appState.entangled,newEntangled], turn: (appState.turn=='w'?'b':'w'),side: (appState.side=='w'?'b':'w')})
