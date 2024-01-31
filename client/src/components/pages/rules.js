@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from "react-router-dom"
 
 // import { get, post } from "../../utilities";
 import "./rules.css";
@@ -12,6 +13,11 @@ const Rules = () => {
             <h4>But beware, once entangled, the duet of pieces cannot be separated. If any piece in an entangled duo is captured by the enemy, both pieces are taken. </h4>
             <h4>Entangle up to a set maximum number of pairs, and try to win before time runs out! </h4>
 
+            <Link to="/">
+                <button className="theme-btn">
+                back
+                </button>
+            </Link>
         </div>
     );
 };

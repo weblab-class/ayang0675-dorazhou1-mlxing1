@@ -59,6 +59,7 @@ const App = () => {
         }
       />
       <Route path="/options" element={<Options />}/>
+      <Route path="/" element={<Rules />}/>
       <Route path="/rules" element={<Rules />}/>
       <Route path="/game" element={<Game />}/>
       <Route path="/solo" element={<Solo />}/>
