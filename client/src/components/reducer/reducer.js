@@ -33,6 +33,15 @@ export const reducer = (state,action) =>{
                 candidateMoves : []
             }
         }
+        case actionTypes.UPDATE_BOARD : {
+            return{
+                ...state,
+                turn : action.payload.turn,
+                position: action.payload.position,
+                entangled: action.payload.entangled,
+
+            }
+        }
         default:
             return state
     }

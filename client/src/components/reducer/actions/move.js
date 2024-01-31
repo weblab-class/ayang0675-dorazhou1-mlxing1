@@ -17,3 +17,9 @@ export const clearCandidates = ()=>{
         type: actionTypes.CLEAR_CANDIDATE_MOVES,
     }
 }
+export const updateBoard = ({position,entangled,turn}) =>{
+    return{
+        type: actionTypes.UPDATE_BOARD,
+        payload:{position,entangled,turn}
+    }
+}

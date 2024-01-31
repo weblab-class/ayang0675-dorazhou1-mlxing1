@@ -9,7 +9,7 @@ import { reducer } from "../reducer/reducer";
 import { useSearchParams } from "react-router-dom";
 import gameSocket from "../../game-socket";
 import { socket } from "../../client-socket.js";
-import { newMove } from "../reducer/actions/move";
+import { newMove, updateBoard } from "../reducer/actions/move";
 import { checkArrays } from "../helper.js";
 
 const Game = () => {
@@ -24,9 +24,10 @@ const Game = () => {
 
   socket.off('nextMove')
   socket.on('nextMove', (move) => {
-    if(!checkArrays(appState.position[appState.position.length-1], move.position)) {
+    /*if(!checkArrays(appState.position[appState.position.length-1], move.position)) {
       dispatch(newMove({newPosition:move.position,newEntangled:move.entangled}))
-    }
+    }*/
+    dispatch(updateBoard(move))
   });
 
   const providerState = {
