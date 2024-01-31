@@ -13,7 +13,7 @@ const Piece = ({rank,file,piece,entanglement}) =>{
         setTimeout(()=>{
         e.target.style.display='none'
         },0)
-        if(turn === piece[0]){
+        if(turn === piece[0] && turn === appState.side){
             const candidateMoves = arbiter.getRegularMoves({position:position[position.length-1],prevPosition:position[position.length-2], piece,rank,file})
             dispatch(generateCandidateMoves({candidateMoves}))
         }

@@ -27,7 +27,7 @@ const Game = () => {
     /*if(!checkArrays(appState.position[appState.position.length-1], move.position)) {
       dispatch(newMove({newPosition:move.position,newEntangled:move.entangled}))
     }*/
-    dispatch(updateBoard(move))
+    if(appState.side==move.side)dispatch(updateBoard(move))
   });
 
   const providerState = {
