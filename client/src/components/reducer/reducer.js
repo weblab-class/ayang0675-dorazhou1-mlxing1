@@ -39,7 +39,7 @@ export const reducer = (state,action) =>{
                 turn : action.payload.turn,
                 position: action.payload.position,
                 entangled: action.payload.entangled,
-
+                side:action.payload.entangled,
             }
         }
         default:

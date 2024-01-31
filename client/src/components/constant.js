@@ -5,4 +5,5 @@ export const initGameState = {
     turn: 'w',
     candidateMoves: [],
     room: '',
+    side: 'w',
 }
