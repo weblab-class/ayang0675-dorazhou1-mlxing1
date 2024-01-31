@@ -8,10 +8,6 @@ const sendNextMove = (room, move) => {
     })
 }
 
-socket.on('nextMove', (move) => {
-    console.log(move)
-});
-
 const joinRoom = (room) => {
     socket.emit("join", room);
     console.log("joined room "+room)
@@ -19,5 +15,5 @@ const joinRoom = (room) => {
 
 export default {
     sendNextMove: sendNextMove,
-    joinRoom: joinRoom,
+    joinRoom: joinRoom
 }

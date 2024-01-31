@@ -3,24 +3,31 @@ import { useReducer } from "react";
 //import "../utilities.css";
 import "./Game.css";
 import Board from "../board/board";
-import AppContext from "../context/context"
+import AppContext, { useAppContext } from "../context/context"
 import { initGameState } from "../constant";
 import { reducer } from "../reducer/reducer";
 import { useSearchParams } from "react-router-dom";
 import gameSocket from "../../game-socket";
+import { socket } from "../../client-socket.js";
+import { newMove } from "../reducer/actions/move";
+import { checkArrays } from "../helper.js";
 
 const Game = () => {
-  const [appState, dispatch] = useReducer(reducer, initGameState)
   const [searchParams, setSearchParams] = useSearchParams();
-  console.log(appState)
   const room = searchParams.get("room");
   console.log("room: "+room)
-  gameSocket.joinRoom(room)
+  gameSocket.joinRoom(room);
+  initGameState.room = room;
+  
+  const [appState, dispatch] = useReducer(reducer, initGameState)
+  console.log(appState)
 
-  const sendMove = (move) => {
-    console.log("here: "+move)
-    gameSocket.sendNextMove(room, move)
-  }
+  socket.off('nextMove')
+  socket.on('nextMove', (move) => {
+    if(!checkArrays(appState.position[appState.position.length-1], move.position)) {
+      dispatch(newMove({newPosition:move.position,newEntangled:move.entangled}))
+    }
+  });
 
   const providerState = {
     appState,
@@ -29,8 +36,6 @@ const Game = () => {
   //console.log(providerState)
   return (
     <AppContext.Provider value = {providerState}>
-      
-    <button onClick={() => sendMove("test message")} className="theme-btn">test</button>
       <div className="game">
         <Board />
       </div>

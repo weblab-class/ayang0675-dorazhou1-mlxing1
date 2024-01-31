@@ -6,6 +6,7 @@ import { createPosition,copyPosition,getEntangled } from '../../helper.js'
 import { useAppContext } from "../../context/context.js";
 import { clearCandidates, newMove } from "../../reducer/actions/move.js";
 import arbiter from "../../arbiter/arbiter.js";
+import gameSocket from "../../../game-socket.js";
 
 const Pieces = () => {
 
@@ -33,10 +34,14 @@ const Pieces = () => {
                 entanglement,piece,rank,file,
                 x,y
             })
-            console.log({newPosition,newEntangled})
             dispatch(newMove({newPosition,newEntangled}))
+                
+            const sendMove = (move) => {
+                gameSocket.sendNextMove(appState.room, move)
+            }
+            console.log("sendmove")
+            sendMove({position: newPosition, entangled: newEntangled})
         }
-
     }
     const onDrop = e=>{
         e.preventDefault()
@@ -47,7 +52,6 @@ const Pieces = () => {
     const onDragOver = e=>{
         e.preventDefault()
     }
-    
     return <div className = 'pieces'
     ref={ref}
     onDrop={onDrop}

@@ -4,4 +4,5 @@ export const initGameState = {
     entangled: [getEntangled()],
     turn: 'w',
     candidateMoves: [],
+    room: '',
 }

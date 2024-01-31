@@ -40,7 +40,6 @@ router.post("/initsocket", (req, res) => {
 });
 
 router.post("/nextMove", (req, res) => {
-  console.log(req.body.move+" "+req.body.room);
   socketManager.getIo().to(req.body.room).emit('nextMove', req.body.move);
   res.send({})
 })
