@@ -6,4 +6,5 @@ export const initGameState = {
     candidateMoves: [],
     room: '',
     side: 'w',
+    solo: 0,
 }

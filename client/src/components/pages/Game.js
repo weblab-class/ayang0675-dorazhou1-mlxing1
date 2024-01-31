@@ -45,6 +45,7 @@ const Game = () => {
   socket.off('incomingBoard')
   socket.on('incomingBoard', (board) => {
     console.log("INCOMINGGG")
+    console.log(board)
     dispatch(updateBoard(board))
   })
 

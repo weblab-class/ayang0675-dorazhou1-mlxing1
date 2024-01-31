@@ -8,13 +8,13 @@ import Home from "./pages/home.js";
 import Options from "./pages/options.js";
 import Rules from "./pages/rules.js";
 import Game from "./pages/Game.js";
+import Solo from "./pages/solo.js"
 
 import "../utilities.css";
 
 import { socket } from "../client-socket.js";
 
 import { get, post } from "../utilities";
-
 /**
  * Define the "App" component
  */
@@ -61,6 +61,7 @@ const App = () => {
       <Route path="/options" element={<Options />}/>
       <Route path="/rules" element={<Rules />}/>
       <Route path="/game" element={<Game />}/>
+      <Route path="/solo" element={<Solo />}/>
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

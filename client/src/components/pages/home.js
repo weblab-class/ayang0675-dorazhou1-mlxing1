@@ -180,6 +180,11 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
             rules
           </button>
         </Link>
+        <Link to="/solo">
+          <button className="theme-btn solo">
+            dev mode
+          </button>
+        </Link>
       </div>
 
     </>
