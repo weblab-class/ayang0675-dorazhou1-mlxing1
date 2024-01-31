@@ -40,7 +40,7 @@ const Pieces = () => {
                 gameSocket.sendNextMove(appState.room, move)
             }
             console.log("sendmove")
-            sendMove({position: [...appState.position,newPosition], entangled: [...appState.entangled,newEntangled], turn: (appState.turn=='w'?'b':'w'),side: appState.side=='w'?'b':'w'})
+            sendMove({position: [...appState.position,newPosition], entangled: [...appState.entangled,newEntangled], turn: (appState.turn=='w'?'b':'w'),side: (appState.side=='w'?'b':'w')})
         }
     }
     const onDrop = e=>{

@@ -36,7 +36,8 @@ const Game = () => {
     socket.on('newPlayer', (socketid) => {
       if(socketid != socket.id) {
         console.log("new player detected")
-        gameSocket.updateBoard({...appState, side: appState.side='w'?'b':'w'}, socketid)
+        console.log(appState.side)
+        gameSocket.updateBoard({position: appState.position, entangled: appState.entangled, turn: appState.turn, side: (appState.side=='w'?'b':'w')}, socketid)
       }
     })
   });
