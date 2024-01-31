@@ -8,12 +8,11 @@ import { initGameState } from "../constant";
 import { reducer } from "../reducer/reducer";
 import { useSearchParams } from "react-router-dom";
 import gameSocket from "../../game-socket";
-import { socket } from "../../client-socket.js";
 import { endUpdate, newMove, updateBoard } from "../reducer/actions/move";
 import { checkArrays } from "../helper.js";
 import Controls from "../modules/controls.js"
 
-const Game = () => {
+const Game = ({socket}) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const room = searchParams.get("room");
   console.log("room: "+room)
