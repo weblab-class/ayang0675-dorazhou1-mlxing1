@@ -6,6 +6,7 @@ import Board from "../board/board";
 import AppContext, { useAppContext } from "../context/context"
 import { initGameState } from "../constant";
 import { reducer } from "../reducer/reducer";
+import { Link } from "react-router-dom";
 
 const Solo = () => {
     const [appState, dispatch] = useReducer(reducer, {...initGameState(3), solo:1})
@@ -18,7 +19,12 @@ const Solo = () => {
     //console.log(providerState)
     return (
       <AppContext.Provider value = {providerState}>
-        <div className="game">
+        <Link to="/">
+          <div class="logo">
+            <img src="logo.svg"/>
+          </div>
+        </Link>
+        <div className="game-solo">
           <Board />
         </div>
       </AppContext.Provider>

@@ -7,7 +7,7 @@ html.body{
 .game {
     display:grid;
     place-content: center; 
-    height: 100vh;
+    padding-top: 20px;
     background: var(--bg-color); 
 }
 .gamepage {
@@ -19,4 +19,8 @@ html.body{
     display: flex;
     flex-direction: column;
     padding: 30px;
+}
+.logo {
+    padding-top: 15px;
+    padding-left: 20px;
 }

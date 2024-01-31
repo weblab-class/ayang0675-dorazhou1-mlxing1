@@ -179,7 +179,7 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
         </Link>
         <Link to="/solo">
           <button className="theme-btn solo">
-            dev mode
+            solo
           </button>
         </Link>
       </div>

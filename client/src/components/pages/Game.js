@@ -6,7 +6,7 @@ import Board from "../board/board";
 import AppContext, { useAppContext } from "../context/context"
 import { initGameState } from "../constant";
 import { reducer } from "../reducer/reducer";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import gameSocket from "../../game-socket";
 import { endUpdate, newMove, updateBoard } from "../reducer/actions/move";
 import { checkArrays } from "../helper.js";
@@ -80,6 +80,11 @@ const Game = ({ socket, wins, losses, userId }) => {
   console.log(wins)
   return (
     <AppContext.Provider value={providerState}>
+      <Link to="/">
+      <div class="logo">
+        <img src="logo.svg"/>
+      </div>
+      </Link>
       <div className="gamepage">
         <div className="game">
           <Board room={room} socket={socket}/>

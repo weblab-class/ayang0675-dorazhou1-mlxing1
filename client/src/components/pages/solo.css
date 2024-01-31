@@ -4,9 +4,12 @@ html.body{
     margin: 0;
     padding: 0;
 }
-.game {
+.logo {
+    padding-top: 15px;
+    padding-left: 20px;
+}
+.game-solo {
     display:grid;
     place-content: center; 
-    height: 100vh;
     background: var(--bg-color); 
 }

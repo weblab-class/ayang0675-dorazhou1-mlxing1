@@ -30,6 +30,7 @@ const Options = () => {
         <div className="options">
         <form onSubmit={(e) => handleSubmit(e)}>
             <h1>select options for your game</h1>
+            <p class="note">click play to create a game, then share your url to play with a friend!</p>
 
             <TextField id="game_code" className="field" variant="standard" label="game code" value={gamecode} onChange={(e) => setGamecode(e.target.value)} sx={{ input: { color: 'black' } }} />
             <br/>

@@ -12,7 +12,6 @@
 .draw-logo {
   width: 80%;
   height: min-content;
-  stroke: #bf4d00;
 }
 .rulesbtn, .solo {
   margin-left: 15px;
