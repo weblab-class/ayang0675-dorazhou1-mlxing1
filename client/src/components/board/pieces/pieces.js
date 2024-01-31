@@ -45,12 +45,26 @@ const Pieces = ({room, socket}) => {
         if(appState.candidateMoves?.find(m => m[0] === x && m[1] === y)){
             const opponent = piece.startsWith('b')?'w':'b'
             const castleDirection = appState.castleDirection[`${piece.startsWith('b') ? 'w': 'b'}`]
+            let kill
+            let si
+            if(currentEntangled[x][y]){
+                kill = currentEntangled[x][y]
+                si=currentPosition[x][y][0]
+            }
             const {newPosition,newEntangled}=arbiter.performMove({
                 position: currentPosition,
                 entangled: currentEntangled,
                 entanglement,piece,rank,file,
                 x,y
             })
+            for(let i = 0; i<8; i++){
+                for(let j =0; j<8; j++){
+                    if(newEntangled[i][j]===kill && newPosition[i][j][0] === si){
+                        newPosition[i][j]=''
+                        newEntangled[i][j]=''
+                    }
+                }
+            }
             if(piece.endsWith('r') || piece.endsWith('k')){
                 updateCastlingState({piece,rank,file})
             }

@@ -51,14 +51,14 @@
     let entangled = new Array(8).fill('').map(x=>new Array(8).fill(''))
 
     const rank = [0,1];
-    const file = [0,1,2,3,4,5,6,7];
+    const file = [0,1,2,3,5,6,7];
     let pairs = []
     rank.forEach( (r) => {
         file.forEach( (f) => {
             pairs.push([r,f])
         })
     });
-    let l = 16;
+    let l = 14;
 
 
     for(let i=0; i<3; i++) {
