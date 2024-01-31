@@ -8,13 +8,13 @@ const Rules = () => {
     return (
         <div className="rulespg">
             <h1>rules </h1>
-            <p>Connect with a friend online and enter the world of quantum chess… </p>
+            <p>Rules are the same as regular chess... but </p>
             <br />
-            <p>In quantum chess, a plethora of novel offensive strategies are opened because players will have the opportunity to entangle two of their pieces before each turn. Once entangled, pairs of pieces will be able to move simultaneously during a single turn. </p>
+            <p>Every game, you will start with 3 sets of entangled pieces. </p>
             <br />
             <p>But beware, once entangled, the duet of pieces cannot be separated. If any piece in an entangled duo is captured by the enemy, both pieces are taken. </p>
             <br />
-            <p>Entangle up to a set maximum number of pairs, and try to win before time runs out! </p>
+            <p>Checkmate your opponent to win!</p>
 
             <Link to="/">
                 <button className="theme-btn">
