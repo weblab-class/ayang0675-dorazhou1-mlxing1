@@ -71,6 +71,7 @@ const App = () => {
         socket={socket}
         wins={wins}
         losses={losses}
+        userId={userId}
       />}/>
       <Route path="/solo" element={<Solo />}/>
       <Route path="/account" element={<Account 

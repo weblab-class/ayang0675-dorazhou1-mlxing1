@@ -14,7 +14,8 @@ import Controls from "../modules/controls.js"
 
 
 
-const Game = ({ socket, wins, losses }) => {
+const Game = ({ socket, wins, losses, userId }) => {
+  console.log(userId)
   const [searchParams, setSearchParams] = useSearchParams();
   const room = searchParams.get("room");
   console.log("room: " + room)
@@ -82,7 +83,7 @@ const Game = ({ socket, wins, losses }) => {
           <Board room={room} socket={socket}/>
         </div>
         <div className="controls">
-          <Controls socket={socket} side={side} wins={wins} losses={losses} room={room} />
+          <Controls socket={socket} side={side} wins={wins} losses={losses} room={room} userId={userId}/>
         </div>
       </div>
     </AppContext.Provider>

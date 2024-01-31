@@ -62,6 +62,28 @@ router.post("/win", (req, res) => {
   socketManager.getIo().to(req.body.room).emit('winner', req.body.winner);
 })
 
+router.post("/addwin", async (req, res) => {
+  console.log("add win for "+req.body.userId);
+  const user = await User.findById(req.body.userId);
+  if (user) {
+    const wins = user.get("wins")
+    console.log(wins+1)
+    const output = await user.updateOne({ wins : (wins+1) })
+    console.log(output)
+  }
+})
+
+router.post("/addloss", async (req, res) => {
+  console.log("add loss for "+req.body.userId);
+  const user = await User.findById(req.body.userId);
+  if (user) {
+    const losses = user.get("losses")
+    console.log(losses+1)
+    const output = await user.updateOne({ losses : (losses+1) })
+    console.log(output)
+  }
+})
+
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
