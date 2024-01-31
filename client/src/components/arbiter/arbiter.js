@@ -1,8 +1,10 @@
-import { getRookMoves,getPawnMoves,getKnightMoves,getKingMoves,getQueenMoves,getBishopMoves } from "./getMoves"
+import { getRookMoves,getPawnMoves,getKnightMoves,getKingMoves,getQueenMoves,getBishopMoves, getKingPosition, getPieces, getEnemyMoves } from "./getMoves"
 import { movePawn, movePiece } from "./move";
+
 const arbiter = {
-    getRegularMoves: function({position,castleDirection, prevPosition,piece,rank,file}){
+    getMoves: function({position,castleDirection, prevPosition,piece,rank,file}){
         //console.log(prevPosition)
+
         switch(piece[1]){
             case 'r':
                 return getRookMoves({position,piece,rank,file});
@@ -22,6 +24,28 @@ const arbiter = {
 
         //return getRookMoves({position,piece,rank,file})
     },
+    
+    isPlayerInCheck: function({PositionAfterMove,entangled,position,player}){
+        const enemy = player.startsWith('w')?'b':'w'
+        let kingPos = getKingPosition(PositionAfterMove,player)
+        const EnemyPieces = getPieces(PositionAfterMove,enemy)
+        const enemyMoves = getEnemyMoves({enemy,position:PositionAfterMove,prevPosition:position})
+        console.log("enemy moves")
+        console.log(enemyMoves)
+        if(enemyMoves.some(([x,y]) => kingPos[0] == x && kingPos[1] ==y))return true
+        return false
+    },
+    getRegularMoves: function({position,castleDirection,entangled, prevPosition,piece,rank,file}){
+        const moves = this.getMoves({position,castleDirection, prevPosition,piece,rank,file})
+        let notInCheckMoves = []
+        moves.forEach(([x,y]) => {
+            const PositionAfterMove = this.performMove({position,entanglement:entangled[rank][file],entangled, piece,rank,file,x,y}).newPosition
+            if(!this.isPlayerInCheck({PositionAfterMove, entangled, position, player: piece[0]})){
+                notInCheckMoves.push([x,y])
+            }
+        })
+        return notInCheckMoves
+    },
     performMove: function({position,entanglement, entangled, piece,rank,file,x,y}){
         if(piece.endsWith('p')){
             return movePawn({position,entanglement,entangled, piece,rank,file,x,y})
@@ -29,6 +53,6 @@ const arbiter = {
         else{
             return movePiece({position,entanglement,entangled, piece, rank, file, x, y})
         }
-    }
+    },
 }
 export default arbiter

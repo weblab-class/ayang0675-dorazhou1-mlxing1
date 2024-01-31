@@ -24,7 +24,6 @@ export const getRookMoves = ({position,piece,rank,file}) => {
             moves.push([x,y])
         }
     })
-    console.log(moves)
     return moves
 }
 
@@ -54,7 +53,6 @@ export const getBishopMoves = ({position,piece,rank,file}) => {
             moves.push([x,y])
         }
     })
-    console.log(moves)
     return moves
 }
 
@@ -75,9 +73,8 @@ export const getKnightMoves = ({position,piece,rank,file}) => {
         [-2,-1]
     ]
     direction.forEach(dir => {
-        if(!position?.[rank + dir[0]]?.[file + dir[1]]?.startsWith(us))moves.push([rank + dir[0], file + dir[1]])
+        if(position?.[rank + dir[0]]?.[file + dir[1]]!==undefined && !position?.[rank + dir[0]]?.[file + dir[1]]?.startsWith(us))moves.push([rank + dir[0], file + dir[1]])
     })
-    console.log(moves)
     return moves
 }
 
@@ -148,7 +145,6 @@ export const getQueenMoves = ({position,piece,rank,file}) => {
             moves.push([x,y])
         }
     })
-    console.log(moves)
     return moves
 }
 
@@ -169,62 +165,19 @@ export const getKingMoves = ({position, castleDirection, piece,rank,file}) => {
         [0,1],
     ]
 
-    /*const getEnemyMoves = () => {
-        enemyMoves = []
-        const findPiece = (piece) => {
-            pieces = []
-            for(let i=0;i<8; i++) {
-                for(let j=0;j<8;j++) {
-                    if(position[i][j]==piece) {
-                        pieces.push([i,j]);
-                    }
-                }
-            }
-        }
-        bishopPos = findPiece(enemy+'b')
-        bishopPos.forEach(pos => {
-            enemyMoves.append(getBishopMoves(position, enemy+'b',pos[0], pos[1]))
-        })
-        knightPos = findPiece(enemy+'h')
-        knightPos.forEach(pos => {
-            enemyMoves.append(getBishopMoves(position, enemy+'h',pos[0], pos[1]))
-        })
-        kingPos = findPiece(enemy+'k')
-        kingPos.forEach(pos => {
-            enemyMoves.append(getBishopMoves(position, enemy+'k',pos[0], pos[1]))
-        })
-        pawnPos = findPiece(enemy+'p')
-        pawnPos.forEach(pos => {
-            enemyMoves.append(getBishopMoves(position, enemy+'p',pos[0], pos[1]))
-        })
-        queenPos = findPiece(enemy+'q')
-        queenPos.forEach(pos => {
-            enemyMoves.append(getBishopMoves(position, enemy+'q',pos[0], pos[1]))
-        })
-        rookPos = findPiece(enemy+'r')
-        rookPos.forEach(pos => {
-            enemyMoves.append(getBishopMoves(position, enemy+'r',pos[0], pos[1]))
-        })
-        return enemyMoves
-    }
-
-    enemyMoves = getEnemyMoves()*/
 
     direction.forEach(dir => {
-        if(!position?.[rank + dir[0]]?.[file + dir[1]]?.startsWith(us))moves.push([rank + dir[0], file + dir[1]])
+        if(position?.[rank + dir[0]]?.[file + dir[1]]!=undefined && !position?.[rank + dir[0]]?.[file + dir[1]]?.startsWith(us))moves.push([rank + dir[0], file + dir[1]])
     })
     
     if(file !== 4 || rank % 7 !==0 || castleDirection ==='none'){
         return moves
     }
     if(piece.startsWith('w')){
-        console.log("looking")
-        console.log(castleDirection)
         if(['left','both'].includes(castleDirection) && !position[0][3] &&  !position[0][2] && !position[0][1] && position[0][0] ==='wr'){
             moves.push([0,2])
         }
         if(['right','both'].includes(castleDirection) && !position[0][5] &&  !position[0][6] && position[0][7]==='wr'){
-            console.log("found!")
             moves.push([0,6])
         }
     }
@@ -238,6 +191,45 @@ export const getKingMoves = ({position, castleDirection, piece,rank,file}) => {
     }
     return moves
 }
+
+export const getEnemyMoves = ({enemy,position,prevPosition}) => {
+    let enemyMoves = []
+    const findPiece = ({piece}) => {
+        let pieces = []
+        for(let i=0;i<8; i++) {
+            for(let j=0;j<8;j++) {
+                if(position[i][j]==piece) {
+                    pieces.push([i,j]);
+                }
+            }
+        }
+        return pieces
+    }
+    const bishopPos = findPiece({piece:enemy+'b'})
+    console.log(bishopPos)
+    bishopPos.forEach(pos => {
+        console.log(getBishopMoves({position, piece:enemy+'b',rank:pos[0], file:pos[1]}))
+        enemyMoves=enemyMoves.concat(getBishopMoves({position, piece:enemy+'b',rank:pos[0], file:pos[1]}))
+    })
+    const knightPos = findPiece({piece:enemy+'h'})
+    knightPos.forEach(pos => {
+        enemyMoves=enemyMoves.concat(getKnightMoves({position, piece:enemy+'h',rank:pos[0], file:pos[1]}))
+    })
+    const pawnPos = findPiece({piece:enemy+'p'})
+    pawnPos.forEach(pos => {
+        enemyMoves=enemyMoves.concat(getPawnMoves({position, piece:enemy+'p',prevPosition, rank:pos[0], file:pos[1]}))
+    })
+    const queenPos = findPiece({piece:enemy+'q'})
+    queenPos.forEach(pos => {
+        enemyMoves=enemyMoves.concat(getQueenMoves({position, piece:enemy+'q',rank:pos[0], file:pos[1]}))
+    })
+    const rookPos = findPiece({piece:enemy+'r'})
+    rookPos.forEach(pos => {
+        enemyMoves=enemyMoves.concat(getRookMoves({position, piece:enemy+'r',rank:pos[0], file:pos[1]}))
+    })
+    return enemyMoves
+}
+
 export const getCastleDirections = ({castleDirection, piece, rank, file}) =>{
     rank = Number(rank)
     file = Number(file)
@@ -255,3 +247,33 @@ export const getCastleDirections = ({castleDirection, piece, rank, file}) =>{
     }
 
 }
+export const getKingPosition = (PositionAfterMove,player) => {
+    let kingPos
+    PositionAfterMove.forEach((rank,x) => {
+        rank.forEach((file,y) => {
+            if(PositionAfterMove[x][y].startsWith(player) && PositionAfterMove[x][y].endsWith('k'))
+            kingPos=[x,y]
+        })
+    })
+    return kingPos
+}
+
+
+
+export const getPieces = (PositionAfterMove,enemy) =>{
+    const enemyPieces = []
+
+    PositionAfterMove.forEach((rank,x) =>{
+        rank.forEach((file,y) =>{
+            if(PositionAfterMove[x][y].startsWith(enemy)){
+                enemyPieces.push({
+                    piece:PositionAfterMove[x][y],
+                    file: x,
+                    rank:y,
+                })
+            }
+        })
+    })
+    return enemyPieces
+}
+

@@ -15,7 +15,6 @@ const Board = () => {
     const getClass = (i,j) =>{
         let c=(i+j)%2===0?'tile--light':'tile--dark'
         if(appState.candidateMoves?.find(m => m[0] === i && m[1] === j)){
-            console.log(appState.candidateMoves)
             if(position[i][j])c+=' attacking'
             else c+=' empty'
         }

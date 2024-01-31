@@ -5,7 +5,7 @@ import { clearCandidates, generateCandidateMoves } from "../../reducer/actions/m
 const Piece = ({rank,file,piece,entanglement}) =>{
 
     const {appState,dispatch} = useAppContext()
-    const {turn, position,castleDirection} = appState
+    const {turn, position,castleDirection,entangled} = appState
     const onDragStart  = e=>{
         //console.log(previousPosition)
         e.dataTransfer.effectAllowed = 'move'
@@ -14,9 +14,9 @@ const Piece = ({rank,file,piece,entanglement}) =>{
         e.target.style.display='none'
         },0)
         if(turn === piece[0] && (turn === appState.side || appState.solo==1)){
-
             const candidateMoves = arbiter.getRegularMoves({
                 position:position[position.length-1],
+                entangled:entangled[entangled.length-1],
                 prevPosition:position[position.length-2], 
                 piece,rank,file,
                 castleDirection: castleDirection[turn]
