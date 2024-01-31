@@ -1,10 +1,10 @@
+import { Status } from "../constant"
 import actionTypes from "./actionTypes"
 
 export const reducer = (state,action) =>{
     switch (action.type){
         case actionTypes.NEW_MOVE : {
-            let {turn,position,entangled} =state
-            turn = turn === 'w'?'b':'w'
+            let {position,entangled} =state
 
             position=[
                 ...position,
@@ -16,7 +16,6 @@ export const reducer = (state,action) =>{
             ]
             return {
                 ...state,
-                turn,
                 position,
                 entangled
             }
@@ -40,6 +39,26 @@ export const reducer = (state,action) =>{
                 position: action.payload.position,
                 entangled: action.payload.entangled,
                 side:action.payload.side,
+            }
+        }
+        case actionTypes.OPEN_PROMOTION : {
+            return{
+                ...state,
+                status:Status.promoting,
+                promotionSquare: {...action.payload}
+            }
+        }
+        case actionTypes.CLOSE_PROMOTION : {
+            return{
+                ...state,
+                status:Status.ongoing,
+                promotionSquare: null
+            }
+        }
+        case actionTypes.CHANGE_MOVE :{
+            return{
+                ...state,
+                turn: (state.turn =='w'?'b':'w'),
             }
         }
         default:

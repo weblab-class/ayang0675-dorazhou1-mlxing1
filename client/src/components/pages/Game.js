@@ -9,7 +9,7 @@ import { reducer } from "../reducer/reducer";
 import { useSearchParams } from "react-router-dom";
 import gameSocket from "../../game-socket";
 import { socket } from "../../client-socket.js";
-import { newMove, updateBoard } from "../reducer/actions/move";
+import { endUpdate, newMove, updateBoard } from "../reducer/actions/move";
 import { checkArrays } from "../helper.js";
 
 const Game = () => {
@@ -54,6 +54,7 @@ const Game = () => {
     dispatch
   }
   //console.log(providerState)
+
   return (
     <AppContext.Provider value = {providerState}>
       <div className="game">

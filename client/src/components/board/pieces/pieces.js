@@ -4,9 +4,10 @@ import Piece from './Piece.js'
 import { useState,useRef,useEffect } from 'react';
 import { createPosition,copyPosition,getEntangled } from '../../helper.js'
 import { useAppContext } from "../../context/context.js";
-import { clearCandidates, newMove } from "../../reducer/actions/move.js";
+import { changeMove, clearCandidates, newMove } from "../../reducer/actions/move.js";
 import arbiter from "../../arbiter/arbiter.js";
 import gameSocket from "../../../game-socket.js";
+import { openPromotion } from "../../reducer/actions/popup.js";
 
 const Pieces = () => {
 
@@ -22,7 +23,9 @@ const Pieces = () => {
         const x = 7- Math.floor((e.clientY-top)/size)
         return {x,y}
     }
-
+    const openPromotionBox = ({rank,file,x,y}) =>{
+        dispatch(openPromotion({rank : Number(rank),file: Number(file),x,y}))
+    }
     const move = e=>{
         const {x,y}=findCoords(e);
         console.log(x,y)
@@ -35,7 +38,12 @@ const Pieces = () => {
                 x,y
             })
             dispatch(newMove({newPosition,newEntangled}))
-                
+            
+            if((piece === 'wp' && x === 7) || (piece ==='bp' && x === 0)){
+                openPromotionBox({x,y})
+                return
+            }
+            dispatch(changeMove())
             const sendMove = (move) => {
                 gameSocket.sendNextMove(appState.room, move)
             }

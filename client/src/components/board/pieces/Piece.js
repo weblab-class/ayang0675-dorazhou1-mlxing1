@@ -28,8 +28,8 @@ const Piece = ({rank,file,piece,entanglement}) =>{
         draggable={true} 
         onDragEnd={onDragEnd}
         onDragStart = {onDragStart}
-        >
-        <img className={`piece-img  ${entanglement}`} src={`pieces/${piece}.svg`} />
+        
+        ><img className={`piece-img  ${entanglement}`} src={`pieces/${piece}.svg`} />
         </div>
     )
 
