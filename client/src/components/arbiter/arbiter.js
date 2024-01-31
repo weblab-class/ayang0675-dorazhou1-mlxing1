@@ -13,7 +13,7 @@ const arbiter = {
             case 'h':
                 return getKnightMoves({position,piece,rank,file});
             case 'k':
-                return getKingMoves({position,piece,rank,file,castleDirection});
+                return getKingMoves({position,piece,rank,file,castleDirection,prevPosition});
             case 'q':
                 return getQueenMoves({position,piece,rank,file});
             case 'b':
@@ -25,13 +25,10 @@ const arbiter = {
         //return getRookMoves({position,piece,rank,file})
     },
     
-    isPlayerInCheck: function({PositionAfterMove,entangled,position,player}){
+    isPlayerInCheck: function({PositionAfterMove,position,player}){
         const enemy = player.startsWith('w')?'b':'w'
         let kingPos = getKingPosition(PositionAfterMove,player)
-        const EnemyPieces = getPieces(PositionAfterMove,enemy)
         const enemyMoves = getEnemyMoves({enemy,position:PositionAfterMove,prevPosition:position})
-        console.log("enemy moves")
-        console.log(enemyMoves)
         if(enemyMoves.some(([x,y]) => kingPos[0] == x && kingPos[1] ==y))return true
         return false
     },

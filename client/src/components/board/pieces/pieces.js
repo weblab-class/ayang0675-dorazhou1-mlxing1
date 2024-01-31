@@ -28,6 +28,7 @@ const Pieces = () => {
         dispatch(openPromotion({rank : Number(rank),file: Number(file),x,y}))
     }
     const updateCastlingState = ({piece,rank,file}) => {
+        //console.log("how the f")
         const direction = getCastleDirections({
             castleDirection: appState.castleDirection,
             piece,rank,file

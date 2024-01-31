@@ -63,6 +63,7 @@ export const reducer = (state,action) =>{
             }
         }
         case actionTypes.CAN_CASTLE :{
+
             let {turn, castleDirection} = state
             castleDirection[turn] = action.payload
             return{

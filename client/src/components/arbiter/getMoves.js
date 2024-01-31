@@ -148,7 +148,7 @@ export const getQueenMoves = ({position,piece,rank,file}) => {
     return moves
 }
 
-export const getKingMoves = ({position, castleDirection, piece,rank,file}) => {
+export const getKingMoves = ({position, castleDirection, piece,rank,file,prevPosition}) => {
     
     const moves =[]
     const us = piece[0]
@@ -171,21 +171,36 @@ export const getKingMoves = ({position, castleDirection, piece,rank,file}) => {
     })
     
     if(file !== 4 || rank % 7 !==0 || castleDirection ==='none'){
+        console.log(castleDirection)
         return moves
     }
+    const enemyMoves=getEnemyMoves({enemy,position,prevPosition})
+    console.log(enemyMoves)
     if(piece.startsWith('w')){
-        if(['left','both'].includes(castleDirection) && !position[0][3] &&  !position[0][2] && !position[0][1] && position[0][0] ==='wr'){
+        if(['left','both'].includes(castleDirection) && !position[0][3] &&  !position[0][2] && !position[0][1] && position[0][0] ==='wr' 
+        && !enemyMoves.includes([0,3])
+        && !enemyMoves.includes([0,2])
+        ){
             moves.push([0,2])
         }
-        if(['right','both'].includes(castleDirection) && !position[0][5] &&  !position[0][6] && position[0][7]==='wr'){
+        if(['right','both'].includes(castleDirection) && !position[0][5] &&  !position[0][6] && position[0][7]==='wr'
+        && !enemyMoves.includes([0,5])
+        && !enemyMoves.includes([0,6])
+        ){
             moves.push([0,6])
         }
     }
     else{
-        if(['left','both'].includes(castleDirection) && !position[7][3] &&  !position[7][2] && !position[7][1] && position[7][0] ==='br'){
+        if(['left','both'].includes(castleDirection) && !position[7][3] &&  !position[7][2] && !position[7][1] && position[7][0] ==='br'
+        && !enemyMoves.includes([0,3])
+        && !enemyMoves.includes([0,2])
+        ){
             moves.push([7,2])
         }
-        if(['right','both'].includes(castleDirection) && !position[7][5] &&  !position[7][6] && position[7][7]==='br'){
+        if(['right','both'].includes(castleDirection) && !position[7][5] &&  !position[7][6] && position[7][7]==='br'
+        && !enemyMoves.includes([0,5])
+        && !enemyMoves.includes([0,6])
+        ){
             moves.push([7,6])
         }
     }
