@@ -31,9 +31,6 @@ export const movePiece = ({position,entangled, entanglement, piece,rank,file,x,y
     }
     newPosition[rank][file]=''
     newEntangled[rank][file] =''
-    console.log(piece)
-    console.log(x)
-    console.log(y)
     newPosition[x][y]=piece
     newEntangled[x][y]=entanglement
     return {newPosition, newEntangled}

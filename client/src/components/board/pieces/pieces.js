@@ -42,6 +42,8 @@ const Pieces = () => {
         console.log(x,y)
         const[piece,rank,file,entanglement] = e.dataTransfer.getData('text').split(',');
         if(appState.candidateMoves?.find(m => m[0] === x && m[1] === y)){
+            const opponent = piece.startsWith('b')?'w':'b'
+            const castleDirection = appState.castleDirection[`${piece.startsWith('b') ? 'w': 'b'}`]
             const {newPosition,newEntangled}=arbiter.performMove({
                 position: currentPosition,
                 entangled: currentEntangled,
@@ -63,7 +65,12 @@ const Pieces = () => {
             }
             console.log("sendmove")
             sendMove({position: [...appState.position,newPosition], entangled: [...appState.entangled,newEntangled], turn: (appState.turn=='w'?'b':'w'),side: (appState.side=='w'?'b':'w')})
-        }
+
+            if(arbiter.isStalemate({entangled:currentEntangled, position:newPosition,player:opponent, prevPosition: currentPosition, castleDirection: appState.castleDirection[opponent]}))
+                console.log("Stalemate");
+            if(arbiter.isCheckmate({entangled:currentEntangled, position:newPosition,player:opponent, prevPosition: currentPosition, castleDirection: appState.castleDirection[opponent]}))
+                console.log( opponent + "lose");
+        }   
     }
     const onDrop = e=>{
         e.preventDefault()

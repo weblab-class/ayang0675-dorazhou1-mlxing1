@@ -171,35 +171,25 @@ export const getKingMoves = ({position, castleDirection, piece,rank,file,prevPos
     })
     
     if(file !== 4 || rank % 7 !==0 || castleDirection ==='none'){
-        console.log(castleDirection)
         return moves
     }
-    const enemyMoves=getEnemyMoves({enemy,position,prevPosition})
-    console.log(enemyMoves)
+    //const enemyMoves=getEnemyMoves({enemy,position,prevPosition,castleDirection})
     if(piece.startsWith('w')){
         if(['left','both'].includes(castleDirection) && !position[0][3] &&  !position[0][2] && !position[0][1] && position[0][0] ==='wr' 
-        && !enemyMoves.includes([0,3])
-        && !enemyMoves.includes([0,2])
         ){
             moves.push([0,2])
         }
         if(['right','both'].includes(castleDirection) && !position[0][5] &&  !position[0][6] && position[0][7]==='wr'
-        && !enemyMoves.includes([0,5])
-        && !enemyMoves.includes([0,6])
         ){
             moves.push([0,6])
         }
     }
     else{
         if(['left','both'].includes(castleDirection) && !position[7][3] &&  !position[7][2] && !position[7][1] && position[7][0] ==='br'
-        && !enemyMoves.includes([0,3])
-        && !enemyMoves.includes([0,2])
         ){
             moves.push([7,2])
         }
         if(['right','both'].includes(castleDirection) && !position[7][5] &&  !position[7][6] && position[7][7]==='br'
-        && !enemyMoves.includes([0,5])
-        && !enemyMoves.includes([0,6])
         ){
             moves.push([7,6])
         }
@@ -207,7 +197,7 @@ export const getKingMoves = ({position, castleDirection, piece,rank,file,prevPos
     return moves
 }
 
-export const getEnemyMoves = ({enemy,position,prevPosition}) => {
+export const getEnemyMoves = ({enemy,position,prevPosition,castleDirection}) => {
     let enemyMoves = []
     const findPiece = ({piece}) => {
         let pieces = []
@@ -221,9 +211,7 @@ export const getEnemyMoves = ({enemy,position,prevPosition}) => {
         return pieces
     }
     const bishopPos = findPiece({piece:enemy+'b'})
-    console.log(bishopPos)
     bishopPos.forEach(pos => {
-        console.log(getBishopMoves({position, piece:enemy+'b',rank:pos[0], file:pos[1]}))
         enemyMoves=enemyMoves.concat(getBishopMoves({position, piece:enemy+'b',rank:pos[0], file:pos[1]}))
     })
     const knightPos = findPiece({piece:enemy+'h'})
@@ -233,6 +221,10 @@ export const getEnemyMoves = ({enemy,position,prevPosition}) => {
     const pawnPos = findPiece({piece:enemy+'p'})
     pawnPos.forEach(pos => {
         enemyMoves=enemyMoves.concat(getPawnMoves({position, piece:enemy+'p',prevPosition, rank:pos[0], file:pos[1]}))
+    })
+    const kingPos = findPiece({piece:enemy+'k'})
+    kingPos.forEach(pos => {
+        enemyMoves=enemyMoves.concat(getKingMoves({position, piece:enemy+'k',prevPosition,castleDirection, rank:pos[0], file:pos[1]}))
     })
     const queenPos = findPiece({piece:enemy+'q'})
     queenPos.forEach(pos => {
@@ -248,8 +240,7 @@ export const getEnemyMoves = ({enemy,position,prevPosition}) => {
 export const getCastleDirections = ({castleDirection, piece, rank, file}) =>{
     rank = Number(rank)
     file = Number(file)
-    console.log('its ')
-    console.log(piece)
+
     const direction = castleDirection[piece[0]];
     if(piece.endsWith('k'))return 'none'
     if(file==0){
@@ -262,11 +253,11 @@ export const getCastleDirections = ({castleDirection, piece, rank, file}) =>{
     }
 
 }
-export const getKingPosition = (PositionAfterMove,player) => {
+export const getKingPosition = ({PositionAfterMove,player}) => {
     let kingPos
     PositionAfterMove.forEach((rank,x) => {
         rank.forEach((file,y) => {
-            if(PositionAfterMove[x][y].startsWith(player) && PositionAfterMove[x][y].endsWith('k'))
+            if(PositionAfterMove[x][y].startsWith(player[0]) && PositionAfterMove[x][y].endsWith('k'))
             kingPos=[x,y]
         })
     })
@@ -275,20 +266,20 @@ export const getKingPosition = (PositionAfterMove,player) => {
 
 
 
-export const getPieces = (PositionAfterMove,enemy) =>{
-    const enemyPieces = []
+export const getPieces = (position,side) =>{
+    const pieces = []
 
-    PositionAfterMove.forEach((rank,x) =>{
+    position.forEach((rank,x) =>{
         rank.forEach((file,y) =>{
-            if(PositionAfterMove[x][y].startsWith(enemy)){
-                enemyPieces.push({
-                    piece:PositionAfterMove[x][y],
+            if(position[x][y].startsWith(side)){
+                pieces.push({
+                    piece:position[x][y],
                     file: x,
                     rank:y,
                 })
             }
         })
     })
-    return enemyPieces
+    return pieces
 }
 
