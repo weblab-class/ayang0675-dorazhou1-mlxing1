@@ -33,6 +33,17 @@ const Game = () => {
     if(appState.side==move.side)dispatch(updateBoard(move))
   });
 
+  socket.on("connect", () => {
+    socket.off('newPlayer')
+    socket.on('newPlayer', (socketid) => {
+      if(socketid != socket.id) {
+        console.log("new player detected")
+        console.log(appState.side)
+        gameSocket.updateBoard({position: appState.position, entangled: appState.entangled, turn: appState.turn, side: (appState.side=='w'?'b':'w')}, socketid)
+      }
+    })
+  });
+
   socket.off('incomingBoard')
   socket.on('incomingBoard', (board) => {
     console.log("INCOMINGGG")
