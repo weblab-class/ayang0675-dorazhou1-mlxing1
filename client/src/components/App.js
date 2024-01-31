@@ -8,7 +8,8 @@ import Home from "./pages/home.js";
 import Options from "./pages/options.js";
 import Rules from "./pages/rules.js";
 import Game from "./pages/Game.js";
-import Solo from "./pages/solo.js"
+import Solo from "./pages/solo.js";
+import Account from "./pages/Account.js";
 
 import "../utilities.css";
 
@@ -20,12 +21,18 @@ import { get, post } from "../utilities";
  */
 const App = () => {
   const [userId, setUserId] = useState(undefined);
+  const [name, setName] = useState(undefined);
+  const [wins, setWins] = useState(undefined);
+  const [losses, setLosses] = useState(undefined);
 
   useEffect(() => {
     get("/api/whoami").then((user) => {
       if (user._id) {
         // they are registed in the database, and currently logged in.
         setUserId(user._id);
+        setName(user.name);
+        setWins(user.wins);
+        setLosses(user.losses);
       }
     });
   }, []);
@@ -59,10 +66,20 @@ const App = () => {
         }
       />
       <Route path="/options" element={<Options />}/>
-      <Route path="/" element={<Rules />}/>
       <Route path="/rules" element={<Rules />}/>
-      <Route path="/game" element={<Game />}/>
+      <Route path="/game" element={<Game 
+        socket={socket}
+      />}/>
       <Route path="/solo" element={<Solo />}/>
+      <Route path="/account" element={<Account 
+        handleLogin={handleLogin}
+        handleLogout={handleLogout}
+        userId={userId}
+        name={name}
+        wins={wins}
+        losses={losses}
+        />
+      }/>
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

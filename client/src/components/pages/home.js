@@ -153,15 +153,11 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
         </div>
         <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
           {userId ? (
-            <button
-              onClick={() => {
-                googleLogout();
-                handleLogout();
-              }}
-              className="theme-btn"
-            >
-              Logout
-            </button>
+            <Link to="/account">
+              <button className="theme-btn">
+                account
+              </button>
+            </Link>
           ) : (
             <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />
           )}
