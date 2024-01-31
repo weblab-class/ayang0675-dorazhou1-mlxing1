@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useReducer } from "react";
 //import "../utilities.css";
 import "./Game.css";
@@ -16,7 +16,9 @@ const Game = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const room = searchParams.get("room");
   console.log("room: "+room)
-  gameSocket.joinRoom(room);
+  useEffect(() => {
+    gameSocket.joinRoom(room);
+  },[]);
   initGameState.room = room;
   
   const [appState, dispatch] = useReducer(reducer, initGameState)
@@ -29,6 +31,21 @@ const Game = () => {
     }*/
     if(appState.side==move.side)dispatch(updateBoard(move))
   });
+  socket.on("connect", () => {
+    socket.off('newPlayer')
+    socket.on('newPlayer', (socketid) => {
+      if(socketid != socket.id) {
+        console.log("new player detected")
+        gameSocket.updateBoard({...appState, side: appState.side='w'?'b':'w'}, socketid)
+      }
+    })
+  });
+
+  socket.off('incomingBoard')
+  socket.on('incomingBoard', (board) => {
+    console.log("INCOMINGGG")
+    dispatch(updateBoard(board))
+  })
 
   const providerState = {
     appState,

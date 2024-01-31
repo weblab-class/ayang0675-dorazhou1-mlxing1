@@ -36,7 +36,22 @@ module.exports = {
         removeUser(user, socket);
       });
       socket.on("join", (room) => {
-        socket.join(room);
+        const numUsers = io.sockets.adapter.rooms.get(room);
+        // const numUsers = 1
+        if(numUsers)
+        console.log(numUsers.length)
+        // if(!numUsers || numUsers.length < 2){
+          console.log("joined room "+room)
+          socket.join(room);
+          console.log("newplayer")
+          io.to(room).emit("newPlayer", socket.id);
+          if(numUsers && numUsers.length == 2) {
+            
+          }
+        // } else if(numUsers.lenght >= 2) {
+        //   io.to(socket.id).emit("fullroom");
+        //   return;
+        // }
       });
     });
   },

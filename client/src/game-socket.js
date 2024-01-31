@@ -10,10 +10,18 @@ const sendNextMove = (room, move) => {
 
 const joinRoom = (room) => {
     socket.emit("join", room);
-    console.log("joined room "+room)
 };
+// sends board out
+const updateBoard = (board, socketid) => {
+    console.log("newplayer post"+socketid)
+    post("/api/updateBoard", {
+        board: board, 
+        socketid: socketid,
+    })
+}
 
 export default {
     sendNextMove: sendNextMove,
-    joinRoom: joinRoom
+    joinRoom: joinRoom,
+    updateBoard: updateBoard,
 }

@@ -44,6 +44,12 @@ router.post("/nextMove", (req, res) => {
   res.send({})
 })
 
+router.post("/updateBoard", (req, res) => {
+  console.log("sent to "+req.body.socketid);
+  socketManager.getIo().to(req.body.socketid).emit('incomingBoard', req.body.board);
+  res.send({})
+})
+
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
