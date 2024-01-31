@@ -33,6 +33,7 @@ export const reducer = (state,action) =>{
             }
         }
         case actionTypes.UPDATE_BOARD : {
+            console.log(action.payload.side);
             return{
                 ...state,
                 turn : action.payload.turn,

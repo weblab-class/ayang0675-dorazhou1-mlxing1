@@ -11,6 +11,7 @@ import gameSocket from "../../game-socket";
 import { socket } from "../../client-socket.js";
 import { endUpdate, newMove, updateBoard } from "../reducer/actions/move";
 import { checkArrays } from "../helper.js";
+import Controls from "../modules/controls.js"
 
 const Game = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -31,16 +32,6 @@ const Game = () => {
     }*/
     if(appState.side==move.side)dispatch(updateBoard(move))
   });
-  socket.on("connect", () => {
-    socket.off('newPlayer')
-    socket.on('newPlayer', (socketid) => {
-      if(socketid != socket.id) {
-        console.log("new player detected")
-        console.log(appState.side)
-        gameSocket.updateBoard({position: appState.position, entangled: appState.entangled, turn: appState.turn, side: (appState.side=='w'?'b':'w')}, socketid)
-      }
-    })
-  });
 
   socket.off('incomingBoard')
   socket.on('incomingBoard', (board) => {
@@ -59,6 +50,9 @@ const Game = () => {
     <AppContext.Provider value = {providerState}>
       <div className="game">
         <Board />
+      </div>
+      <div className="controls">
+        <Controls />
       </div>
     </AppContext.Provider>
   );

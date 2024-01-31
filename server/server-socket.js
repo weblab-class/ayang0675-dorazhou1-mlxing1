@@ -48,10 +48,6 @@ module.exports = {
           if(numUsers && numUsers.length == 2) {
             
           }
-        // } else if(numUsers.lenght >= 2) {
-        //   io.to(socket.id).emit("fullroom");
-        //   return;
-        // }
       });
     });
   },

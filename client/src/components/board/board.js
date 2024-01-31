@@ -5,9 +5,21 @@ import Ranks from './bits/ranks'
 import Pieces from './pieces/pieces'
 import { useAppContext } from '../context/context'
 import Popup from './popup/popup'
+import { socket } from '../../client-socket'
 const Board = () => {
+    
     const {appState} = useAppContext()
-
+    socket.on("connect", () => {
+        socket.off('newPlayer')
+        socket.on('newPlayer', (socketid) => {
+          if(socketid != socket.id) {
+            console.log("new player detected")
+            console.log(appState.side)
+            gameSocket.updateBoard({position: appState.position, entangled: appState.entangled, turn: appState.turn, side: (appState.side=='w'?'b':'w')}, socketid)
+          }
+        })
+      });
+    
     const ranks =appState.side=='w'? Array(8).fill().map((x,i) =>8-i) : Array(8).fill().map((x,i) =>i+1)
     const files = appState.side=='w'? Array(8).fill().map((x,i) => i+1) : Array(8).fill().map((x,i) => 8-i)
 
