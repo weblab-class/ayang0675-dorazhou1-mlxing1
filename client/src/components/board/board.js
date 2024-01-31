@@ -5,12 +5,12 @@ import Ranks from './bits/ranks'
 import Pieces from './pieces/pieces'
 import { useAppContext } from '../context/context'
 import Popup from './popup/popup'
-
 const Board = () => {
-    const ranks =Array(8).fill().map((x,i) =>8-i)
-    const files = Array(8).fill().map((x,i) => i+1)
-
     const {appState} = useAppContext()
+
+    const ranks =appState.side=='w'? Array(8).fill().map((x,i) =>8-i) : Array(8).fill().map((x,i) =>i+1)
+    const files = appState.side=='w'? Array(8).fill().map((x,i) => i+1) : Array(8).fill().map((x,i) => 8-i)
+
     const position = appState.position[appState.position.length-1]
     const getClass = (i,j) =>{
         let c=(i+j)%2===0?'tile--light':'tile--dark'
@@ -29,7 +29,7 @@ const Board = () => {
         <div className="tiles">
             {ranks.map((rank,i) => 
                 files.map((file,j)=>
-                    <div key = {rank + '-' + file} className = {getClass(7-i,j)}></div>
+                    <div key = {rank + '-' + file} className = {appState.side=='w'?getClass(7-i,j):getClass(i,7-j)}></div>
             
                 )
             )}

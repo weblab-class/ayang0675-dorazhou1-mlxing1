@@ -20,8 +20,8 @@ const Pieces = () => {
     const findCoords = e=>{
        const {width,left,top} = ref.current.getBoundingClientRect()
         const size=width/8
-        const y = Math.floor((e.clientX-left)/size)
-        const x = 7- Math.floor((e.clientY-top)/size)
+        const y = appState.side=='w'?Math.floor((e.clientX-left)/size):7-Math.floor((e.clientX-left)/size)
+        const x = appState.side =='w'?7- Math.floor((e.clientY-top)/size):Math.floor((e.clientY-top)/size)
         return {x,y}
     }
     const openPromotionBox = ({rank,file,x,y}) =>{

@@ -30,7 +30,7 @@ const Piece = ({rank,file,piece,entanglement}) =>{
     }
     return (
         <div
-        className = {`piece ${piece} p-${rank}${file}`} 
+        className = {`piece ${piece} p-${rank}${file} ${appState.side}`} 
         draggable={true} 
         onDragEnd={onDragEnd}
         onDragStart = {onDragStart}
