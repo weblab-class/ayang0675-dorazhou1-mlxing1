@@ -8,7 +8,7 @@ import { initGameState } from "../constant";
 import { reducer } from "../reducer/reducer";
 
 const Solo = () => {
-    const [appState, dispatch] = useReducer(reducer, {...initGameState, solo:1})
+    const [appState, dispatch] = useReducer(reducer, {...initGameState(3), solo:1})
     console.log(appState)
   
     const providerState = {
