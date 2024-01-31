@@ -147,7 +147,8 @@ function drawLogo() {
 
 const Home = ({ userId, handleLogin, handleLogout }) => {
   return (
-    <>
+    <div className="home">
+      <style>{'body { background-color: rgb(22, 30, 26); }'}</style>
       <div className="navbar">
         <div className="logo">
         </div>
@@ -183,7 +184,7 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
         </Link>
       </div>
 
-    </>
+    </div>
   );
 };
 

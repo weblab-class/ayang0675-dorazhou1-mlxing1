@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 
 import "../../utilities.css";
 import "./home.css";
-import "./account.css"
+import "./account.css";
 import { post } from "../../utilities";
 
 const GOOGLE_CLIENT_ID = "797692957520-0rdd7k0a7c691bgefrl6o0cn07hg4lmc.apps.googleusercontent.com";
@@ -13,6 +13,7 @@ const GOOGLE_CLIENT_ID = "797692957520-0rdd7k0a7c691bgefrl6o0cn07hg4lmc.apps.goo
 const Account = ({ userId, handleLogin, handleLogout, name, wins, losses }) => {
   return (
     <>
+    <style>{'body { background-color: rgb(22, 30, 26); }'}</style>
       <div className="navbar">
         <div className="logo">
         </div>
