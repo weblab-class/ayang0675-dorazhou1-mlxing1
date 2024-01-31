@@ -8,7 +8,8 @@ import { changeMove, clearCandidates, newMove } from "../../reducer/actions/move
 import arbiter from "../../arbiter/arbiter.js";
 import gameSocket from "../../../game-socket.js";
 import { openPromotion } from "../../reducer/actions/popup.js";
-
+import { getCastleDirections } from "../../arbiter/getMoves.js";
+import { updateCastling } from "../../reducer/actions/game.js";
 const Pieces = () => {
 
     const ref=useRef()
@@ -26,6 +27,15 @@ const Pieces = () => {
     const openPromotionBox = ({rank,file,x,y}) =>{
         dispatch(openPromotion({rank : Number(rank),file: Number(file),x,y}))
     }
+    const updateCastlingState = ({piece,rank,file}) => {
+        const direction = getCastleDirections({
+            castleDirection: appState.castleDirection,
+            piece,rank,file
+        })
+        if(direction){
+            dispatch(updateCastling({direction}))
+        }
+    }
     const move = e=>{
         const {x,y}=findCoords(e);
         console.log(x,y)
@@ -37,6 +47,9 @@ const Pieces = () => {
                 entanglement,piece,rank,file,
                 x,y
             })
+            if(piece.endsWith('r') || piece.endsWith('k')){
+                updateCastlingState({piece,rank,file})
+            }
             dispatch(newMove({newPosition,newEntangled}))
             
             if((piece === 'wp' && x === 7) || (piece ==='bp' && x === 0)){

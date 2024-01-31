@@ -15,4 +15,8 @@ export const initGameState = {
     solo: 0,
     status: Status.ongoing,
     promotionSquare: null,
+    castleDirection:{
+        w: 'both',
+        b: 'both',
+    }
 }
