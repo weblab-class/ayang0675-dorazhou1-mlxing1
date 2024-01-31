@@ -5,12 +5,13 @@ import { useState,useRef,useEffect } from 'react';
 import { createPosition,copyPosition,getEntangled } from '../../helper.js'
 import { useAppContext } from "../../context/context.js";
 import { clearCandidates, newMove } from "../../reducer/actions/move.js";
+import arbiter from "../../arbiter/arbiter.js";
 
 const Pieces = () => {
 
     const ref=useRef()
 
-    const {appState, dispatch} = useAppContext();
+    let {appState, dispatch} = useAppContext();
     const currentPosition = appState.position[appState.position.length-1]
     const currentEntangled = appState.entangled[appState.entangled.length-1]
     const findCoords = e=>{
@@ -20,26 +21,28 @@ const Pieces = () => {
         const x = 7- Math.floor((e.clientY-top)/size)
         return {x,y}
     }
-    const onDrop = e=>{
-        //console.log(ref.current.getBoundingClientRect())
 
-        const newPosition=copyPosition(currentPosition)
+    const move = e=>{
         const {x,y}=findCoords(e);
-        const[p,rank,file,entanglement] = e.dataTransfer.getData('text').split(',');
-
+        console.log(x,y)
+        const[piece,rank,file,entanglement] = e.dataTransfer.getData('text').split(',');
         if(appState.candidateMoves?.find(m => m[0] === x && m[1] === y)){
-            if (p.endsWith('p') && newPosition[x][y] === '' && x!==rank && y!==file)
-                newPosition[rank][y]=''
-            newPosition[rank][file]=''
-            newPosition[x][y]=p
-            const newEntangled = copyPosition(currentEntangled)
-            newEntangled[rank][file]=''
-            newEntangled[x][y]=entanglement
+            const {newPosition,newEntangled}=arbiter.performMove({
+                position: currentPosition,
+                entangled: currentEntangled,
+                entanglement,piece,rank,file,
+                x,y
+            })
+            console.log({newPosition,newEntangled})
             dispatch(newMove({newPosition,newEntangled}))
         }
 
+    }
+    const onDrop = e=>{
+        e.preventDefault()
+        //console.log(ref.current.getBoundingClientRect())
+        move(e);
         dispatch(clearCandidates())
-
     }
     const onDragOver = e=>{
         e.preventDefault()

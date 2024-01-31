@@ -1,4 +1,5 @@
 import { getRookMoves,getPawnMoves,getKnightMoves,getKingMoves,getQueenMoves,getBishopMoves } from "./getMoves"
+import { movePawn, movePiece } from "./move";
 const arbiter = {
     getRegularMoves: function({position,prevPosition,piece,rank,file}){
         //console.log(prevPosition)
@@ -20,6 +21,14 @@ const arbiter = {
         }
 
         //return getRookMoves({position,piece,rank,file})
+    },
+    performMove: function({position,entanglement, entangled, piece,rank,file,x,y}){
+        if(piece.endsWith('p')){
+            return movePawn({position,entanglement,entangled, piece,rank,file,x,y})
+        }
+        else{
+            return movePiece({position,entanglement,entangled, piece, rank, file, x, y})
+        }
     }
 }
 export default arbiter

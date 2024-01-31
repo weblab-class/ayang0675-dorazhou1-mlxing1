@@ -12,7 +12,7 @@ import gameSocket from "../../game-socket";
 const Game = () => {
   const [appState, dispatch] = useReducer(reducer, initGameState)
   const [searchParams, setSearchParams] = useSearchParams();
-  
+  console.log(appState)
   const room = searchParams.get("room");
   console.log("room: "+room)
   gameSocket.joinRoom(room)

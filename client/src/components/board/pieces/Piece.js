@@ -1,7 +1,7 @@
 import React from "react"
 import { useAppContext } from "../../context/context"
 import arbiter from "../../arbiter/arbiter"
-import { generateCandidateMoves } from "../../reducer/actions/move"
+import { clearCandidates, generateCandidateMoves } from "../../reducer/actions/move"
 const Piece = ({rank,file,piece,entanglement}) =>{
 
     const {appState,dispatch} = useAppContext()
@@ -20,6 +20,7 @@ const Piece = ({rank,file,piece,entanglement}) =>{
     }
     const onDragEnd = e=>{
         e.target.style.display='block'
+        dispatch(clearCandidates())
     }
     return (
         <div

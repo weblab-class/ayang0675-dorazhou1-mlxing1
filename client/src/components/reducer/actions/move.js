@@ -1,5 +1,6 @@
 import actionTypes from "../actionTypes"
 export const newMove = ({newPosition, newEntangled}) => {
+    //console.log(newPosition, newEntangled)
     return {
         type: actionTypes.NEW_MOVE,
         payload: {newPosition, newEntangled}
