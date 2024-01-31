@@ -147,21 +147,18 @@ function drawLogo() {
 
 const Home = ({ userId, handleLogin, handleLogout }) => {
   return (
-    <>
+    <div className="home">
+      <style>{'body { background-color: rgb(22, 30, 26); }'}</style>
       <div className="navbar">
         <div className="logo">
         </div>
         <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
           {userId ? (
-            <button
-              onClick={() => {
-                googleLogout();
-                handleLogout();
-              }}
-              className="theme-btn"
-            >
-              Logout
-            </button>
+            <Link to="/account">
+              <button className="theme-btn">
+                account
+              </button>
+            </Link>
           ) : (
             <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />
           )}
@@ -187,7 +184,7 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
         </Link>
       </div>
 
-    </>
+    </div>
   );
 };
 

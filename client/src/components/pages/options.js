@@ -9,7 +9,7 @@ import { Link, useNavigate } from "react-router-dom"
 import "./options.css";
 
 const Options = () => {
-    
+
     const [gamecode, setGamecode] = useState("");
     const [time, setTime] = useState("");
     const [entangle, setEntangle] = useState("");
@@ -17,7 +17,7 @@ const Options = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         navigate("/game?room="+gamecode)
-        
+
     };
     const handleTime = (event) => {
         setTime(event.target.value);
@@ -25,12 +25,12 @@ const Options = () => {
     const handleEntangle = (event) => {
         setEntangle(event.target.value)
     };
-    
+
     return (
         <div class="options">
         <form onSubmit={(e) => handleSubmit(e)}>
             <h1>select options for your game</h1>
-            
+
             <TextField id="game_code" className="field" variant="standard" label="game code" value={gamecode} onChange={(e) => setGamecode(e.target.value)} sx={{ input: { color: 'black' } }} />
             <br/>
             <FormControl className='field' variant="standard" sx={{ m: 1, minWidth: 300 }}>
@@ -70,9 +70,14 @@ const Options = () => {
             <br />
             <br />
             <button type="submit" className="theme-btn">play</button>
+            <Link to="/">
+            <button className="theme-btn backbtn">
+                back
+            </button>
+        </Link>
         </form>
         </div>
     );
 };
- 
+
 export default Options;

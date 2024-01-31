@@ -10,3 +10,14 @@ html.body{
     height: 100vh;
     background: var(--bg-color); 
 }
+.gamepage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.controls {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    /* color: #bce1e1 */
+}

@@ -5,7 +5,7 @@ import Ranks from './bits/ranks'
 import Pieces from './pieces/pieces'
 import { useAppContext } from '../context/context'
 import Popup from './popup/popup'
-const Board = () => {
+const Board = ({room, socket}) => {
     
     const {appState} = useAppContext()
     const ranks =appState.side=='w'? Array(8).fill().map((x,i) =>8-i) : Array(8).fill().map((x,i) =>i+1)
@@ -33,7 +33,7 @@ const Board = () => {
                 )
             )}
         </div>
-        <Pieces/>
+        <Pieces room={room} socket={socket}/>
         <Popup/>
         <Files files={files}/>
     </div>

@@ -10,7 +10,8 @@ import gameSocket from "../../../game-socket.js";
 import { openPromotion } from "../../reducer/actions/popup.js";
 import { getCastleDirections } from "../../arbiter/getMoves.js";
 import { updateCastling } from "../../reducer/actions/game.js";
-const Pieces = () => {
+import { post } from "../../../utilities.js";
+const Pieces = ({room, socket}) => {
 
     const ref=useRef()
 
@@ -68,8 +69,10 @@ const Pieces = () => {
 
             if(arbiter.isStalemate({entangled:currentEntangled, position:newPosition,player:opponent, prevPosition: currentPosition, castleDirection: appState.castleDirection[opponent]}))
                 console.log("Stalemate");
-            if(arbiter.isCheckmate({entangled:currentEntangled, position:newPosition,player:opponent, prevPosition: currentPosition, castleDirection: appState.castleDirection[opponent]}))
-                console.log( opponent + "lose");
+            if(arbiter.isCheckmate({entangled:currentEntangled, position:newPosition,player:opponent, prevPosition: currentPosition, castleDirection: appState.castleDirection[opponent]})) {
+                console.log( opponent + "lose")
+                post("/api/win", {winner: socket.id, room: room})
+            }
         }   
     }
     const onDrop = e=>{

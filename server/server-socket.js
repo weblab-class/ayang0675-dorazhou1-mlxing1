@@ -40,11 +40,12 @@ module.exports = {
         // const numUsers = 1
         if(numUsers)
         console.log(numUsers.length)
+      console.log(numUsers)
         // if(!numUsers || numUsers.length < 2){
           console.log("joined room "+room)
-          socket.join(room);
-          console.log("newplayer")
+          console.log("newplayer"+socket.id)
           io.to(room).emit("newPlayer", socket.id);
+          socket.join(room);
           if(numUsers && numUsers.length == 2) {
             
           }

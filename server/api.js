@@ -50,6 +50,18 @@ router.post("/updateBoard", (req, res) => {
   res.send({})
 })
 
+router.post("/lose", (req, res) => {
+  console.log("lose "+req.body.loser)
+  console.log(req.body.room)
+  socketManager.getIo().to(req.body.room).emit('loser', req.body.loser);
+})
+
+router.post("/win", (req, res) => {
+  console.log("win "+req.body.winner)
+  console.log(req.body.room)
+  socketManager.getIo().to(req.body.room).emit('winner', req.body.winner);
+})
+
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|

@@ -1,0 +1,16 @@
+/* 
+body {
+    background-color: rgb(22, 30, 26);
+} */
+.account {
+    padding: 8%;
+    color: #25DFDA;
+}
+
+p {
+    margin: 0;
+}
+
+.theme-btn {
+    margin-top: 15px;
+}
