@@ -9,8 +9,10 @@ import { reducer } from "../reducer/reducer";
 import { Link, useSearchParams } from "react-router-dom";
 import gameSocket from "../../game-socket";
 import { endUpdate, newMove, updateBoard } from "../reducer/actions/move";
-import { checkArrays } from "../helper.js";
+import { checkArrays, getEntangled } from "../helper.js";
 import Controls from "../modules/controls.js"
+import { addEntangled } from "../reducer/actions/game.js";
+// import { addEntangled } from "../reducer/actions/game.js";
 
 
 
@@ -25,8 +27,10 @@ const Game = ({ socket, wins, losses, userId }) => {
     gameSocket.joinRoom(room);
   }, []);
   initGameState.room = room;
+  initGameState.entangled = [getEntangled(pairs)];
+  console.log(initGameState.entangled)
 
-  const [appState, dispatch] = useReducer(reducer, initGameState(pairs))
+  const [appState, dispatch] = useReducer(reducer, initGameState)
   const [side, setSide] = useState(appState.side);
   console.log("refresh"+side)
   console.log(appState)
@@ -48,16 +52,6 @@ const Game = ({ socket, wins, losses, userId }) => {
       }
     })
   });
-  // console.log(socket)
-  // socket.off('newPlayer')
-  // socket.on('newPlayer', (socketid) => {
-  //   console.log("received self")
-  //   if (socketid != socket.id) {
-  //     console.log("new player detected")
-  //     console.log(appState.side)
-  //     gameSocket.updateBoard({ position: appState.position, entangled: appState.entangled, turn: appState.turn, side: (appState.side == 'w' ? 'b' : 'w') }, socketid)
-  //   }
-  // })
 
   socket.off('incomingBoard')
   socket.on('incomingBoard', (board) => {

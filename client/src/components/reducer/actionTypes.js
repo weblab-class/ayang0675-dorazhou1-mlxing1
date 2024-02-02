@@ -7,6 +7,7 @@ const actionTypes = {
     "CLOSE_PROMOTION":"CLOSE_PROMOTION",
     "CHANGE_MOVE":"CHANGE_MOVE",
     "CAN_CASTLE":"CAN_CASTLE",
+    "ADD_ENTANGLE": "ADD_ENTANGLE",
 }
 
 export default actionTypes

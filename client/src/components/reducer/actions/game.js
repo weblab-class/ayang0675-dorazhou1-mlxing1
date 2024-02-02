@@ -5,3 +5,9 @@ export const updateCastling = ({direction}) =>{
         payload : direction
     }
 }
+export const addEntangled = ({numpairs}) => {
+    return {
+        type: actionTypes.ADD_ENTANGLE,
+        payload: numpairs
+    }
+}

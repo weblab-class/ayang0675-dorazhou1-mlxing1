@@ -70,6 +70,12 @@ export const reducer = (state,action) =>{
                 castleDirection
             }
         }
+        case actionTypes.ADD_ENTANGLE : {
+            return {
+                ...state,
+                entangled: action.payload
+            }
+        }
         default:
             return state
     }

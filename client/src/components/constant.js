@@ -5,10 +5,9 @@ export const Status = {
     'whote' : 'White wins',
     'black' : 'Black wins',
 }
-export const initGameState = (numpairs) => {
-    return({
+export const initGameState = {
     position: [createPosition()],
-    entangled: [getEntangled(numpairs)],
+    // entangled: [getEntangled(3)],
     turn: 'w',
     candidateMoves: [],
     room: '',
@@ -20,5 +19,4 @@ export const initGameState = (numpairs) => {
         w: 'both',
         b: 'both',
     }
-})
 }
